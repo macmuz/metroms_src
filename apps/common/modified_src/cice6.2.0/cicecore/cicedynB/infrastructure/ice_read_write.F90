@@ -42,6 +42,7 @@
                 ice_read,           &
                 ice_read_ext,       &
                 ice_read_nc,        &
+                ice_read_nc_interp, &
                 ice_read_global,    &
                 ice_read_global_nc, &
                 ice_read_global_nc2,&
@@ -1235,6 +1236,173 @@
 #endif
       end subroutine ice_read_nc2
 
+!=======================================================================
+!MACIEJ INTERP READ
+      SUBROUTINE calcme(xdim,ydim,inarray,outarray,W,idx)
+        integer (kind=int_kind), intent(in) :: xdim,ydim
+        real(kind=dbl_kind), dimension(xdim,ydim), intent(in) :: inarray
+        real(kind=dbl_kind), dimension(nx_global,ny_global), intent(out) :: outarray
+        real(kind=4), dimension(nx_global,ny_global,4), intent(in) :: W
+        integer(kind=2), dimension(nx_global,ny_global,4,2), intent(in) :: idx
+
+        real(kind=dbl_kind) :: tmp
+        integer :: i,j,k,x,y
+
+        do i = 1,size(outarray,1)
+        do j = 1,size(outarray,2)
+          tmp = 0
+          do k = 1,4
+            x = idx(i,j,k,1)
+            y = idx(i,j,k,2)
+            if (x.gt.0 .and. y.gt.0) then
+              tmp = tmp+inarray(x,y)*W(i,j,k)
+            end if
+          end do
+          outarray(i,j) = tmp
+        end do
+        end do
+      END SUBROUTINE calcme
+
+      subroutine ice_read_nc_interp(fid,  nrec,  varname, work,  xdim,&
+                     ydim, idx, W, diag, field_loc, field_type)
+
+      use ice_gather_scatter, only: scatter_global, scatter_global_ext
+
+      integer (kind=int_kind), intent(in) :: &
+           fid           , & ! file id
+           nrec          , & ! record number
+           xdim          , &
+           ydim 
+
+      real(kind=4), dimension(nx_global,ny_global,4), intent(in) :: W
+      integer(kind=2), dimension(nx_global,ny_global,4,2), intent(in) :: idx 
+
+      logical (kind=log_kind), intent(in) :: &
+           diag              ! if true, write diagnostic output
+
+      character (len=*), intent(in) :: &
+           varname           ! field name in netcdf file
+
+      real (kind=dbl_kind), dimension(nx_block,ny_block,max_blocks), intent(out) :: &
+           work              ! output array (real, 8-byte)
+
+      integer (kind=int_kind), optional, intent(in) :: &
+           field_loc, &      ! location of field on staggered grid
+           field_type        ! type of field (scalar, vector, angle)
+
+      ! local variables
+
+      character(len=*), parameter :: subname = '(ice_read_nc_interp)'
+
+#ifdef USE_NETCDF
+! netCDF file diagnostics:
+      integer (kind=int_kind) :: &
+         varid          , & ! variable id
+         status             ! status output from netcdf routines
+!        ndim, nvar,      & ! sizes of netcdf file
+!        id,              & ! dimension index
+!        dimlen             ! dimension size
+
+      real (kind=dbl_kind) :: &
+         missingvalue, &
+         amin, amax, asum   ! min, max values and sum of input array
+
+!     character (char_len) :: &
+!        dimname            ! dimension name
+
+      real (kind=dbl_kind), dimension(:,:), allocatable :: &
+         work_g1
+
+      integer (kind=int_kind) :: nx, ny
+
+      real (kind=dbl_kind), dimension(:,:), allocatable :: &
+         work_g2
+
+      nx = nx_global
+      ny = ny_global
+
+      work = c0 ! to satisfy intent(out) attribute
+
+      if (my_task == master_task) then
+         allocate(work_g1(nx,ny))
+         allocate(work_g2(xdim,ydim))
+      else
+         allocate(work_g1(1,1))   ! to save memory
+         allocate(work_g2(1,1))   ! to save memory
+      endif
+
+      if (my_task == master_task) then
+
+        !-------------------------------------------------------------
+        ! Find out ID of required variable
+        !-------------------------------------------------------------
+
+         status = nf90_inq_varid(fid, trim(varname), varid)
+
+         if (status /= nf90_noerr) then
+           call abort_ice (subname//'ERROR: Cannot find variable'//trim(varname) )
+         endif
+
+       !--------------------------------------------------------------
+       ! Read global array
+       !--------------------------------------------------------------
+
+         status = nf90_get_var( fid, varid, work_g2, &
+                  start=(/1,1,nrec/), &
+                  count=(/xdim,ydim,1/) )
+
+         status = nf90_get_att(fid, varid, "_FillValue", missingvalue)
+         write(nu_diag,*) "MACIEJ,",trim(varname)
+         write(nu_diag,*) "MIN/MAX",minval(work_g2),maxval(work_g2)
+         call calcme(xdim,ydim,work_g2,work_g1,W,idx)
+         write(nu_diag,*) "MIN/MAX",minval(work_g1),maxval(work_g1)
+      endif                     ! my_task = master_task
+
+    !-------------------------------------------------------------------
+    ! optional diagnostics
+    !-------------------------------------------------------------------
+
+      if (my_task==master_task .and. diag) then
+           write(nu_diag,*) &
+             'ice_read_nc_xy, fid= ',fid, ', nrec = ',nrec, &
+             ', varname = ',trim(varname)
+!          status = nf90_inquire(fid, nDimensions=ndim, nVariables=nvar)
+!          write(nu_diag,*) 'ndim= ',ndim,', nvar= ',nvar
+!          do id=1,ndim
+!            status = nf90_inquire_dimension(fid,id,name=dimname,len=dimlen)
+!            write(nu_diag,*) 'Dim name = ',trim(dimname),', size = ',dimlen
+!         enddo
+         amin = minval(work_g1)
+         amax = maxval(work_g1, mask = work_g1 /= missingvalue)
+         asum = sum   (work_g1, mask = work_g1 /= missingvalue)
+         write(nu_diag,*) ' min, max, sum =', amin, amax, asum, trim(varname)
+      endif
+
+    !-------------------------------------------------------------------
+    ! Scatter data to individual processors.
+    ! NOTE: Ghost cells are not updated unless field_loc is present.
+    !-------------------------------------------------------------------
+
+      if (present(field_loc)) then
+         call scatter_global(work, work_g1, master_task, distrb_info, &
+                             field_loc, field_type)
+      else
+         call scatter_global(work, work_g1, master_task, distrb_info, &
+                             field_loc_noupdate, field_type_noupdate)
+      endif
+
+      deallocate(work_g1)
+      deallocate(work_g2)
+
+! echmod:  this should not be necessary if fill/missing are only on land
+      where (work > 1.0e+30_dbl_kind) work = c0
+
+#else
+      call abort_ice(subname//'ERROR: USE_NETCDF cpp not defined', &
+          file=__FILE__, line=__LINE__)
+#endif
+      end subroutine ice_read_nc_interp
+!END MACIEJ INTERP READ
 !=======================================================================
 
 ! Read a netCDF file and scatter to processors.

@@ -72,6 +72,9 @@
       USE cice_initmod, ONLY: cice_initialize
       USE cice_runmod, ONLY: cice_run
       USE cice_finalmod, ONLY: cice_finalize
+# ifdef INPUT_INTERP
+      USE interp_coeff_mod, ONLY: remove_interp_coeff
+# endif
 #endif
 !
       implicit none
@@ -210,8 +213,14 @@
           CALL mpi_abort(MPI_COMM_WORLD, MyError)
         END IF
         IF (exit_flag.eq.NoError) THEN
+#ifdef INPUT_INTERP
+           CALL remove_interp_coeff()
+#endif
            CALL ROMS_finalize
         ELSE
+#ifdef INPUT_INTERP
+          CALL remove_interp_coeff()
+#endif
           CALL ROMS_finalize
           CALL mpi_abort(MPI_COMM_WORLD, MyError)
         END IF

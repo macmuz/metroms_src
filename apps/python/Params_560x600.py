@@ -38,9 +38,9 @@ class Params(object):
             self.DELTAT=150
             self.CICEDELTAT=900
             self.COUPLINGTIME_I2O=900
-            self.ROMSINFOLDER="/users/work/mmuzyka/CSDIR/input_560x600"
-            self.ROMSFORCING="/users/work/mmuzyka/CSDIR/forcing_560x600"
-            self.ROMSINIFILE = self.ROMSINFOLDER+"/ROMS_grid_2_3km_560x600_NetCDF4_initial_1999-11-17.nc"
+            self.ROMSINFOLDER="/scratch/lustre/plgmacmuz/ROMS/input_560x600"
+            self.ROMSFORCING="/scratch/lustre/plgmacmuz/ROMS/UERRA"
+            self.ROMSINIFILE = self.ROMSINFOLDER+"/ROMS_grid_2_3km_560x600_NetCDF4_initial_19930701.nc"
 #            self.ROMSINIFILE = self.RUNPATH+"/ocean_rst_1999-11-27.nc"
             if restart == True:
                 f = open(self.CICERUNDIR+'/restart/ice.restart_file', 'r')
@@ -84,13 +84,13 @@ class Params(object):
             ['RSTSTEP',str(240*3600/int(self.DELTAT))],
             ['STASTEP',str(0*3600/int(self.DELTAT))],
             ['INFOSTEP',str(1*3600/int(self.DELTAT))],
-            ['HISSTEPP',str(0*3600/int(self.DELTAT))],
+            ['HISSTEPP',str(1*3600/int(self.DELTAT))],
             ['AVGSTEPP',str(6*3600/int(self.DELTAT))],
             ['STARTAVG',"1"],
             ['DEFAVGSTEP',str(24*3600/int(self.DELTAT))],  #if 0; all output in one avg-file
             ['STARTTIME',str((start_date-self.TIMEREF).total_seconds()/86400)],
             ['TIDEREF',str((start_date-self.TIMEREF).total_seconds()/86400)],
-            ['DEFHISSTEP',str(0*3600/int(self.DELTAT))],
+            ['DEFHISSTEP',str(24*3600/int(self.DELTAT))],
             ['TIMEREF',self.TIMEREF.strftime("%Y%m%d.00")],
             ['V_TRANS',"2"],
             ['_TNUDG_',"2.0d0 2.0d0"],
@@ -102,89 +102,26 @@ class Params(object):
             ['RUNDIR',self.RUNPATH],
             ['RIVERFILE',\
                 self.ROMSINFOLDER+"/rivers_560x600_1999_copy.nc | \n"+\
-                self.ROMSINFOLDER+"/rivers_560x600_2000_copy.nc | \n"+\
-                self.ROMSINFOLDER+"/rivers_560x600_2001_copy.nc | \n"+\
-                self.ROMSINFOLDER+"/rivers_560x600_2002_copy.nc | \n"+\
-                self.ROMSINFOLDER+"/rivers_560x600_2003_copy.nc | \n"+\
-                self.ROMSINFOLDER+"/rivers_560x600_2004_copy.nc | \n"+\
-                self.ROMSINFOLDER+"/rivers_560x600_2005_copy.nc | \n"+\
-                self.ROMSINFOLDER+"/rivers_560x600_2006_copy.nc | \n"+\
-                self.ROMSINFOLDER+"/rivers_560x600_2007_copy.nc"],
+                self.ROMSINFOLDER+"/rivers_560x600_2000_copy.nc"],
             ['_BRYNAME_',\
                 self.ROMSINFOLDER+"/ROMS_grid_2_3km_560x600_NetCDF4_bc_spline_1999.nc | \n"+\
-                self.ROMSINFOLDER+"/ROMS_grid_2_3km_560x600_NetCDF4_bc_spline_2000.nc | \n"+\
-                self.ROMSINFOLDER+"/ROMS_grid_2_3km_560x600_NetCDF4_bc_spline_2001.nc | \n"+\
-                self.ROMSINFOLDER+"/ROMS_grid_2_3km_560x600_NetCDF4_bc_spline_2002.nc | \n"+\
-                self.ROMSINFOLDER+"/ROMS_grid_2_3km_560x600_NetCDF4_bc_spline_2003.nc | \n"+\
-                self.ROMSINFOLDER+"/ROMS_grid_2_3km_560x600_NetCDF4_bc_spline_2004.nc | \n"+\
-                self.ROMSINFOLDER+"/ROMS_grid_2_3km_560x600_NetCDF4_bc_spline_2005.nc | \n"+\
-                self.ROMSINFOLDER+"/ROMS_grid_2_3km_560x600_NetCDF4_bc_spline_2006.nc | \n"+\
-                self.ROMSINFOLDER+"/ROMS_grid_2_3km_560x600_NetCDF4_bc_spline_2007.nc"],
+                self.ROMSINFOLDER+"/ROMS_grid_2_3km_560x600_NetCDF4_bc_spline_2000.nc"],
             ['TIDEDIR',self.RUNPATH],
             ['ATMDIR',\
                 self.ROMSFORCING+"/baltic_lwrad_down_1999.nc | \n"+\
-                self.ROMSFORCING+"/baltic_lwrad_down_2000.nc | \n"+\
-                self.ROMSFORCING+"/baltic_lwrad_down_2001.nc | \n"+\
-                self.ROMSFORCING+"/baltic_lwrad_down_2002.nc | \n"+\
-                self.ROMSFORCING+"/baltic_lwrad_down_2003.nc | \n"+\
-                self.ROMSFORCING+"/baltic_lwrad_down_2004.nc | \n"+\
-                self.ROMSFORCING+"/baltic_lwrad_down_2005.nc | \n"+\
-                self.ROMSFORCING+"/baltic_lwrad_down_2006.nc | \n"+\
-                self.ROMSFORCING+"/baltic_lwrad_down_2007.nc \ \n"+\
+                self.ROMSFORCING+"/baltic_lwrad_down_2000.nc \ \n"+\
                 self.ROMSFORCING+"/baltic_Pair_1999.nc | \n"+\
-                self.ROMSFORCING+"/baltic_Pair_2000.nc | \n"+\
-                self.ROMSFORCING+"/baltic_Pair_2001.nc | \n"+\
-                self.ROMSFORCING+"/baltic_Pair_2002.nc | \n"+\
-                self.ROMSFORCING+"/baltic_Pair_2003.nc | \n"+\
-                self.ROMSFORCING+"/baltic_Pair_2004.nc | \n"+\
-                self.ROMSFORCING+"/baltic_Pair_2005.nc | \n"+\
-                self.ROMSFORCING+"/baltic_Pair_2006.nc | \n"+\
-                self.ROMSFORCING+"/baltic_Pair_2007.nc \ \n"+\
+                self.ROMSFORCING+"/baltic_Pair_2000.nc \ \n"+\
                 self.ROMSFORCING+"/baltic_Qair_1999.nc | \n"+\
-                self.ROMSFORCING+"/baltic_Qair_2000.nc | \n"+\
-                self.ROMSFORCING+"/baltic_Qair_2001.nc | \n"+\
-                self.ROMSFORCING+"/baltic_Qair_2002.nc | \n"+\
-                self.ROMSFORCING+"/baltic_Qair_2003.nc | \n"+\
-                self.ROMSFORCING+"/baltic_Qair_2004.nc | \n"+\
-                self.ROMSFORCING+"/baltic_Qair_2005.nc | \n"+\
-                self.ROMSFORCING+"/baltic_Qair_2006.nc | \n"+\
-                self.ROMSFORCING+"/baltic_Qair_2007.nc \ \n"+\
+                self.ROMSFORCING+"/baltic_Qair_2000.nc \ \n"+\
                 self.ROMSFORCING+"/baltic_rain_1999.nc | \n"+\
-                self.ROMSFORCING+"/baltic_rain_2000.nc | \n"+\
-                self.ROMSFORCING+"/baltic_rain_2001.nc | \n"+\
-                self.ROMSFORCING+"/baltic_rain_2002.nc | \n"+\
-                self.ROMSFORCING+"/baltic_rain_2003.nc | \n"+\
-                self.ROMSFORCING+"/baltic_rain_2004.nc | \n"+\
-                self.ROMSFORCING+"/baltic_rain_2005.nc | \n"+\
-                self.ROMSFORCING+"/baltic_rain_2006.nc | \n"+\
-                self.ROMSFORCING+"/baltic_rain_2007.nc \ \n"+\
+                self.ROMSFORCING+"/baltic_rain_2000.nc \ \n"+\
                 self.ROMSFORCING+"/baltic_swrad_1999.nc | \n"+\
-                self.ROMSFORCING+"/baltic_swrad_2000.nc | \n"+\
-                self.ROMSFORCING+"/baltic_swrad_2001.nc | \n"+\
-                self.ROMSFORCING+"/baltic_swrad_2002.nc | \n"+\
-                self.ROMSFORCING+"/baltic_swrad_2003.nc | \n"+\
-                self.ROMSFORCING+"/baltic_swrad_2004.nc | \n"+\
-                self.ROMSFORCING+"/baltic_swrad_2005.nc | \n"+\
-                self.ROMSFORCING+"/baltic_swrad_2006.nc | \n"+\
-                self.ROMSFORCING+"/baltic_swrad_2007.nc \ \n"+\
+                self.ROMSFORCING+"/baltic_swrad_2000.nc \ \n"+\
                 self.ROMSFORCING+"/baltic_Tair_1999.nc | \n"+\
-                self.ROMSFORCING+"/baltic_Tair_2000.nc | \n"+\
-                self.ROMSFORCING+"/baltic_Tair_2001.nc | \n"+\
-                self.ROMSFORCING+"/baltic_Tair_2002.nc | \n"+\
-                self.ROMSFORCING+"/baltic_Tair_2003.nc | \n"+\
-                self.ROMSFORCING+"/baltic_Tair_2004.nc | \n"+\
-                self.ROMSFORCING+"/baltic_Tair_2005.nc | \n"+\
-                self.ROMSFORCING+"/baltic_Tair_2006.nc | \n"+\
-                self.ROMSFORCING+"/baltic_Tair_2007.nc \ \n"+\
+                self.ROMSFORCING+"/baltic_Tair_2000.nc \ \n"+\
                 self.ROMSFORCING+"/baltic_wind_1999.nc | \n"+\
-                self.ROMSFORCING+"/baltic_wind_2000.nc | \n"+\
-                self.ROMSFORCING+"/baltic_wind_2001.nc | \n"+\
-                self.ROMSFORCING+"/baltic_wind_2002.nc | \n"+\
-                self.ROMSFORCING+"/baltic_wind_2003.nc | \n"+\
-                self.ROMSFORCING+"/baltic_wind_2004.nc | \n"+\
-                self.ROMSFORCING+"/baltic_wind_2005.nc | \n"+\
-                self.ROMSFORCING+"/baltic_wind_2006.nc | \n"+\
-                self.ROMSFORCING+"/baltic_wind_2007.nc"],
+                self.ROMSFORCING+"/baltic_wind_2000.nc"],
             ['FORCEFILES',"7"], # The files should be specified here as well
             ['COUPLINGTIMEI2O',str(self.COUPLINGTIME_I2O)],
             ['ROMSINFILE', self.ROMSINFILE ],

@@ -1,1 +1,1 @@
-run_slurm_560x600.sh
+run_slurm_1370x1460.sh

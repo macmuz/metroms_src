@@ -1,6 +1,6 @@
 #######################################
-export METROMS_BASEDIR=/users/work/mmuzyka/metroms_src_work
-export METROMS_CASEDIR=/users/work/mmuzyka/CSDIR/new_metro_560x600_5UERRA
+export METROMS_BASEDIR=/home/plgrid/plgmacmuz/metroms_src
+export METROMS_CASEDIR=/scratch/lustre/plgmacmuz/CSDIR/metro_POP_wind
 #######################################
 
 export PYTHONPATH=${PYTHONPATH}:$METROMS_BASEDIR/apps/python/
@@ -17,8 +17,8 @@ export CXX=icc
 export ROMS_APPLICATION=baltic
 export MYHOST=tryton
 
-export METROMS_FORCING=/users/work/mmuzyka/CSDIR/forcing_560x600
-export CICE_grid_dir=/users/work/mmuzyka/CSDIR/input_560x600
+export METROMS_FORCING=/scratch/lustre/plgmacmuz/ROMS/UERRA
+export CICE_grid_dir=/scratch/lustre/plgmacmuz/ROMS/input_560x600
 export mygridnx=560
 export mygridny=600
 

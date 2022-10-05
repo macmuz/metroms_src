@@ -1794,6 +1794,11 @@
         integer :: northBCIend = 0 !maciej
         integer :: northBCJ = 0    !maciej
 #endif
+#ifdef INPUT_INTERP
+        integer :: nx_interp = 0 !maciej
+        integer :: ny_interp = 0    !maciej
+        character(len=150) :: interp_file
+#endif
 !
       CONTAINS
 !

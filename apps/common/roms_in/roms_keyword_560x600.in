@@ -909,7 +909,7 @@ Dout(iTvdif) == F F     ! temp_vdiff, ...    vertical diffusion
 !   [3] parallel read and serial write of NetCDF4/HDF5
 !   [4] parallel read and write of NETCDF4/HDF5
 
-  PIO_METHOD =  4
+  PIO_METHOD =  2
 
 ! PIO library MPI processes set-up:
 

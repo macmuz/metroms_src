@@ -1,6 +1,6 @@
 #!/bin/bash
 #suffix='2700x3200'
-suffix='560x600'
+suffix='1370x1460'
 
 
 rm var_glob.sh

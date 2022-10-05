@@ -207,7 +207,7 @@
 !
 !  Inquire about the dimensions and check for consistency.
 !
-        CALL netcdf_check_dim (ng, model, Fname,                        &
+        CALL netcdf_check_dim (ng, model, Fname,                 &
      &                         ncid = my_ncid)
         IF (FoundError(exit_flag, NoError, __LINE__, MyFile)) RETURN
 !

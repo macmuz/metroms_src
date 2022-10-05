@@ -1,1 +1,1 @@
-Params_560x600.py
+Params_1370x1460.py

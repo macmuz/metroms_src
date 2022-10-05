@@ -53,6 +53,11 @@
          grid_spacing , & !  default of 30.e3m or set by user in namelist 
          grid_type        !  current options are rectangular (default),
                           !  displaced_pole, tripole, regional
+        
+      integer(kind=2), allocatable, public :: interp_idx(:,:,:,:)
+      real(kind=4), allocatable, public :: interp_W(:,:,:)
+
+      character(char_len_long), public :: interp_file !MACIEJ
 
       real (kind=dbl_kind), dimension (:,:,:), allocatable, public :: &
          dxt    , & ! width of T-cell through the middle (m)
@@ -154,6 +159,14 @@
 
       integer (int_kind) :: ierr
 
+      if (my_task == master_task) then
+         allocate( interp_idx(nx_global,ny_global,4,2) )
+         allocate( interp_W(nx_global,ny_global,4) )
+      else
+         allocate( interp_idx(1,1,1,1) )
+         allocate( interp_W(1,1,1) )
+      end if
+    
       allocate( &
          dxt      (nx_block,ny_block,max_blocks), & ! width of T-cell through the middle (m)
          dyt      (nx_block,ny_block,max_blocks), & ! height of T-cell through the middle (m)
@@ -214,6 +227,17 @@
 ! based on latitude and topography, contained in the ULAT and KMT arrays. 
 !
 ! authors: William Lipscomb and Phil Jones, LANL
+
+    SUBROUTINE check(status,label)
+      USE NETCDF, only: nf90_noerr, nf90_strerror
+      implicit none
+      INTEGER, INTENT(in) :: status , label
+
+      IF (status .ne. nf90_noerr) then
+          print*, trim(nf90_strerror(status)),'label=',label
+          stop "Stopped"
+      END IF
+    END SUBROUTINE check
 
       subroutine init_grid1 
 
@@ -351,10 +375,13 @@
           field_loc_center, field_loc_NEcorner, &
           field_type_scalar, field_type_vector, field_type_angle
       use ice_domain_size, only: max_blocks
+      use NETCDF, only: nf90_open, nf90_inq_varid, nf90_get_var, &
+                    nf90_close, NF90_NOWRITE
 
       integer (kind=int_kind) :: &
          i, j, iblk, &
-         ilo,ihi,jlo,jhi      ! beginning and end of physical domain
+         ilo,ihi,jlo,jhi,&      ! beginning and end of physical domain
+         ncid,varid
 
       real (kind=dbl_kind) :: &
          angle_0, angle_w, angle_s, angle_sw, &
@@ -379,6 +406,16 @@
       call icepack_warnings_flush(nu_diag)
       if (icepack_warnings_aborted()) call abort_ice(error_message=subname, &
          file=__FILE__, line=__LINE__)
+
+      if (my_task == master_task) then
+        CALL check(nf90_open(trim(interp_file), NF90_NOWRITE, ncid),110)
+        CALL check(nf90_inq_varid(ncid, 'W', varid),111)
+        CALL check(nf90_get_var(ncid, varid, interp_W),112)
+        CALL check(nf90_inq_varid(ncid, 'idx', varid),113)
+        CALL check(nf90_get_var(ncid, varid, interp_idx),114)
+        CALL check(nf90_close( ncid ), 115 )
+        write(nu_diag,*) 'MACIEJ: interp coeff read'
+      end if
 
       if (trim(grid_type) == 'displaced_pole' .or. &
           trim(grid_type) == 'tripole' .or. &

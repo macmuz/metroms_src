@@ -12,9 +12,6 @@
 ** Input script:       roms_baltic.in
 */
 
-#define ANA_BSFLUX
-#define ANA_BTFLUX
-
 #define UV_ADV
 #define DJ_GRADPS
 #define UV_COR
@@ -42,6 +39,7 @@
 
 #define NORTHBC
 #define FSOBC_REDUCED
+#define UV_COR
 
 #define TS_U3HADVECTION
 #undef TS_C4HADVECTION
@@ -53,12 +51,14 @@
 #undef DIAGNOSTICS_TS
 #undef DIAGNOSTICS_UV
 
+#define INPUT_INTERP
 #define BULK_FLUXES
 #define SOLAR_SOURCE
 #define LONGWAVE_OUT
 #define EMINUSP
 #define SPECIFIC_HUMIDITY /*MACIEJ*/
 #define PERFECT_RESTART /*MACIEJ*/
+#define POP_WIND /*MACIEJ*/
 #define INLINE_2DIO
 
 
@@ -68,3 +68,6 @@
 # define KANTHA_CLAYSON
 # define RI_SPLINES
 #endif
+
+#define ANA_BSFLUX
+#define ANA_BTFLUX

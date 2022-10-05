@@ -594,6 +594,16 @@
               Npts=load_i(Nval, Rval, 1, Ivalue)!maciej
               northBCJ=Ivalue(1)                !maciej
 #endif
+#ifdef INPUT_INTERP  
+            CASE ('nx_interp')                  !maciej
+              Npts=load_i(Nval, Rval, 1, Ivalue)!maciej
+              nx_interp=Ivalue(1)               !maciej
+            CASE ('ny_interp')                  !maciej
+              Npts=load_i(Nval, Rval, 1, Ivalue)!maciej
+              ny_interp=Ivalue(1)               !maciej
+            CASE ('interp_file')                !maciej
+              interp_file=TRIM(ADJUSTL(Cval(Nval)))  !maciej
+#endif
             CASE ('ERend')
               Npts=load_i(Nval, Rval, 1, Ivalue)
               ERend=Ivalue(1)
@@ -4325,6 +4335,14 @@
      &          'I - end index for own North BC'                         !maciej
           WRITE (out,120) northBCJ, 'northBCJ',                         &!maciej
      &          'J - index for own North BC'                             !maciej
+#endif
+#ifdef INPUT_INTERP
+          WRITE (out,120) nx_interp, 'nx_interp',                       &!maciej
+     &          'forcing input xdim'                                     !maciej
+          WRITE (out,120) ny_interp, 'ny_interp',                       &!maciej
+     &          'forcing input xdim'                                     !maciej
+          WRITE (out,230) 'forcing interp file:  ',                     &!maciej
+                TRIM(interp_file)                                        !maciej
 #endif
           WRITE (out,120) ERend, 'ERend',                               &
      &          'Ending ensemble/perturbation run number.'

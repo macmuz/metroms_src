@@ -29,7 +29,8 @@
       use ice_exit, only: abort_ice
       use ice_read_write, only: ice_open, ice_read, &
                                 ice_get_ncvarsize, ice_read_vec_nc, &
-                                ice_open_nc, ice_read_nc, ice_close_nc
+                                ice_open_nc, ice_read_nc, ice_close_nc, &
+                                ice_read_nc_interp
       use ice_timers, only: ice_timer_start, ice_timer_stop, timer_readwrite, &
                             timer_bound, timer_forcing
       use ice_arrays_column, only: oceanmixed_ice, restore_bgc
@@ -56,7 +57,9 @@
          ycycle          , & ! number of years in forcing cycle, set by namelist
          fyear_init      , & ! first year of data in forcing cycle, set by namelist
          fyear           , & ! current year in forcing cycle, varying during the run
-         fyear_final         ! last year in cycle, computed at init
+         fyear_final     , & ! last year in cycle, computed at init
+         nx_interp       , & ! MACIEJ
+         ny_interp           ! MACIEJ
 
       character (char_len_long) :: &        ! input data file names
           uwind_file, &
@@ -955,6 +958,7 @@
 ! Adapted by Alison McLaren, Met Office from read_data
 
       use ice_diagnostics, only: check_step
+      use ice_grid, only: interp_idx, interp_W
 
       logical (kind=log_kind), intent(in) :: flag
 
@@ -1019,9 +1023,15 @@
 
          arg = 1
 
-         call ice_read_nc &
-              (fid, nrec, fieldname, field_data(:,:,arg,:), dbug, &
-               field_loc, field_type)
+         if (my_task==master_task) then
+           write(nu_diag,*) "MACIEJ,idx,W"
+           write(nu_diag,*) "MIN/MAX",minval(interp_idx),maxval(interp_idx)
+           write(nu_diag,*) "MIN/MAX",minval(interp_W),maxval(interp_W)
+         end if
+
+         call ice_read_nc_interp &
+              (fid, nrec, fieldname, field_data(:,:,arg,:), nx_interp,&
+               ny_interp, interp_idx, interp_W, dbug, field_loc, field_type)
 
          if (ixx==1) call ice_close_nc(fid)
 
@@ -1032,9 +1042,9 @@
          arg = arg + 1
          nrec = recd + ixx
 
-         call ice_read_nc &
-              (fid, nrec, fieldname, field_data(:,:,arg,:), dbug, &
-               field_loc, field_type)
+         call ice_read_nc_interp &
+              (fid, nrec, fieldname, field_data(:,:,arg,:), nx_interp,&
+               ny_interp, interp_idx, interp_W, dbug, field_loc, field_type)
 
          call ice_close_nc(fid)
 

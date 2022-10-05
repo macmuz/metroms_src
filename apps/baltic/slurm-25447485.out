@@ -1,0 +1,18 @@
+ 'tryton/hdf5/1.8.16-intel' unload complete.
+ 'tryton/python-intel/2019' unload complete.
+ 'tryton/mpi/intel/2019' unload complete.
+ 'tryton/mkl/2019' unload complete.
+ 'tryton/compiler/intel/2019' unload complete.
+ 'tryton/compiler/gcc/9.3' unload complete.
+ 'tryton/binutils/2.34' unload complete.
+/apl/tryton/modules/4.6.0/init/bash: line 157: unalias: Faddpath: not found
+ 'tryton/binutils/2.34' load complete.
+ 'tryton/compiler/gcc/9.3' load complete.
+ 'tryton/compiler/intel/2019' load complete.
+ 'tryton/mpi/intel/2019' load complete.
+
+Loading tryton/netcdf/4.7.4-intel19-mpi-iopan
+  Loading requirement: tryton/binutils/2.34 tryton/compiler/gcc/9.3
+    tryton/compiler/intel/2019 tryton/mpi/intel/2019
+    tryton/hdf5/1.10.6-intel19-mpi-iopan
+slurmstepd: error: *** JOB 25447485 ON gv0802 CANCELLED AT 2022-09-22T09:51:04 ***

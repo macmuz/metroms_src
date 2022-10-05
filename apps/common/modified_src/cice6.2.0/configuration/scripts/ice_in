@@ -16,7 +16,7 @@
     restart_ext    = .false.
     use_restart_time = .true.
     restart_format = 'default'
-    lcdf64         = .false.
+    lcdf64         = .true.
     numin          = 21
     numax          = 89
     restart_dir    = './restart/'
@@ -228,6 +228,9 @@
     ocn_data_format = 'bin'
     ocn_data_dir    = '/unknown_ocn_data_dir'
     oceanmixed_file = 'unknown_oceanmixed_file'
+    nx_interp       = 560
+    ny_interp       = 600
+    interp_file     = '/users/work/mmuzyka/CSDIR/input_1370x1460/out_05NM.nc'
 /
 
 &domain_nml

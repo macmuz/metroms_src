@@ -1,1 +1,1 @@
-var_glob_560x600.sh
+var_glob_1370x1460.sh

@@ -673,7 +673,8 @@
          if (status /= nf90_noerr) then
             write(nchar,'(i0)') status
             call abort_ice( &
-            'ice: Error defining restart ncfile '//trim(filename)//' Status '//trim(nchar))
+            'ice: Error defining restart ncfile '//trim(filename)//' Status '//trim(nchar)//&
+            trim(nf90_strerror(status)))
 !jd
          endif
 

@@ -61,6 +61,7 @@
       USE mod_grid
       USE mod_ncparam
       USE mod_scalars
+      USE mod_iounits !maciej
 !
 !  Imported variable declarations.
 !
@@ -264,6 +265,9 @@
         END IF
       END IF
       IF (mynorthBC) THEN !maciej start
+!        write(stdout,*) 'MACIEJ v:', v(Itmp1-1,Jtmp+1,N(ng),nstp),        &
+!                    v(Itmp1,Jtmp+1,N(ng),nstp),                           &  
+!                    v(Itmp1,Jtmp+2,N(ng),nstp)
 !
 !  Northern edge, implicit upstream radiation condition.
 !

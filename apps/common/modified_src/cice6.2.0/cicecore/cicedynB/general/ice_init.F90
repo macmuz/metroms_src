@@ -89,13 +89,13 @@
           bgc_data_type, &
           ocn_data_type, ocn_data_dir,    wave_spec_file,  &
           oceanmixed_file, restore_ocn,   trestore, & 
-          ice_data_type
+          ice_data_type, nx_interp, ny_interp
       use ice_arrays_column, only: bgc_data_dir, fe_data_type
       use ice_grid, only: grid_file, gridcpl_file, kmt_file, &
                           bathymetry_file, use_bathymetry, &
                           bathymetry_format, &
                           grid_type, grid_format, &
-                          dxrect, dyrect
+                          dxrect, dyrect, interp_file
       use ice_dyn_shared, only: ndte, kdyn, revised_evp, yield_curve, &
                                 kevp_kernel, &
                                 seabed_stress, seabed_stress_method, &
@@ -235,7 +235,7 @@
         fyear_init,     ycycle,                                         &
         atm_data_dir,   ocn_data_dir,    bgc_data_dir,                  &
         atm_data_format, ocn_data_format, rotate_wind,                  &
-        oceanmixed_file
+        oceanmixed_file, nx_interp, ny_interp, interp_file
 
       !-----------------------------------------------------------------
       ! default values
@@ -433,6 +433,9 @@
       trestore        = 90        ! restoring timescale, days (0 instantaneous)
       restore_ice     = .false.   ! restore ice state on grid edges if true
       dbug      = .false.         ! true writes diagnostics for input forcing
+      interp_file = 'unknown_interp_file'
+      nx_interp = 560
+      ny_interp = 600
 
       latpnt(1) =  90._dbl_kind   ! latitude of diagnostic point 1 (deg)
       lonpnt(1) =   0._dbl_kind   ! longitude of point 1 (deg)
@@ -748,6 +751,9 @@
       call broadcast_scalar(ocn_data_type,        master_task)
       call broadcast_scalar(ocn_data_dir,         master_task)
       call broadcast_scalar(oceanmixed_file,      master_task)
+      call broadcast_scalar(interp_file,          master_task)
+      call broadcast_scalar(nx_interp,            master_task)
+      call broadcast_scalar(ny_interp,            master_task)
       call broadcast_scalar(restore_ocn,          master_task)
       call broadcast_scalar(trestore,             master_task)
       call broadcast_scalar(restore_ice,          master_task)
@@ -1681,6 +1687,9 @@
 
          write(nu_diag,1021) ' fyear_init       = ', fyear_init
          write(nu_diag,1021) ' ycycle           = ', ycycle
+         write(nu_diag,1021) ' nx_interp        = ', nx_interp
+         write(nu_diag,1021) ' ny_interp        = ', ny_interp
+         write(nu_diag,1031) ' interp_file      = ', trim(interp_file)
          write(nu_diag,1031) ' atm_data_type    = ', trim(atm_data_type)
          if (trim(atm_data_type) /= 'default') then
             write(nu_diag,1031) ' atm_data_dir     = ', trim(atm_data_dir)
