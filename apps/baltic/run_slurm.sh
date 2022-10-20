@@ -1,1 +1,0 @@
-run_slurm_1370x1460.sh

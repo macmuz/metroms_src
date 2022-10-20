@@ -176,7 +176,8 @@
           RETURN
         END IF
         open(UNIT=600,FILE=trim(rstpnam)) !MACIEJ
-        write(600,*) TRIM(ncname) !MACIEJ
+!        write(600,*) TRIM(ncname) !MACIEJ
+        write(600,'(A)') TRIM(ncname) !MACIEJ
         close(600) !MACIEJ
 !
 !-----------------------------------------------------------------------
