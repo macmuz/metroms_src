@@ -355,11 +355,12 @@ LtracerSponge == F F                            ! temperature, salinity, inert
     GLS_Kmin == 5.0d-6
     GLS_Pmin == 5.0d-6
 
+
     GLS_CMU0 == 0.5544d0
-      GLS_C1 == 0.9d0
-      GLS_C2 == 0.52d0
-     GLS_C3M == 2.5d0
-     GLS_C3P == 1.0d0
+      GLS_C1 == 0.90d0
+      GLS_C2 == 0.50d0
+     GLS_C3M == 0.90d0
+     GLS_C3P == 0.90d0
     GLS_SIGK == 1.96d0
     GLS_SIGP == 1.96d0
 
