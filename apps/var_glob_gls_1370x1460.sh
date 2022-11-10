@@ -1,6 +1,6 @@
 #######################################
-export METROMS_BASEDIR=/users/work/jakacki/ROMS_IOPAN/metroms_iopan
-export METROMS_CASEDIR=/users/work/jakacki/CSDIR/metro_atm05NM_test2
+export METROMS_BASEDIR=/users/kdm/mmuzyka/metroms_src
+export METROMS_CASEDIR=/users/work/mmuzyka/CSDIR/metro_atm05NM_test2
 #######################################
 
 export PYTHONPATH=${PYTHONPATH}:$METROMS_BASEDIR/apps/python/

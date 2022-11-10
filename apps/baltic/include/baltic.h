@@ -1,1 +1,1 @@
-baltic_gls_1370x1460.h
+baltic_gls3_1370x1460.h

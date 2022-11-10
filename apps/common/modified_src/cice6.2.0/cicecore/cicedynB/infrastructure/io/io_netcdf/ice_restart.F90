@@ -221,7 +221,7 @@
       if (my_task == master_task) then
          filename = trim(filename) // '.nc'
          open(nu_rst_pointer,file=pointer_file)
-         write(nu_rst_pointer,'(a)') filename
+         write(nu_rst_pointer,'(a)') trim(filename)
          close(nu_rst_pointer)
 
          iflag = 0
