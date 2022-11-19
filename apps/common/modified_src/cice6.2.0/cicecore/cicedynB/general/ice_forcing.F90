@@ -2062,7 +2062,7 @@
       if (forcing_debug .and. my_task == master_task) write(nu_diag,*) subname,'fdbg start'
 
       fsw_file = &
-           trim(atm_data_dir)//'/baltic_swrad_2016.nc'
+           trim(atm_data_dir)//'/baltic_swrad_down_2016.nc'
       call file_year(fsw_file,yr)
 
       flw_file = &
@@ -2199,7 +2199,7 @@
          call read_data_iopas_nc (read1, oldrecd, fyear, ixm, ixx, &
             rain_file, fieldname, fsnow_data, &
             field_loc_center, field_type_scalar)
-         fieldname='swrad'
+         fieldname='swrad_down'
          call read_data_iopas_nc (read1, oldrecd, fyear, ixm, ixx, &
             fsw_file, fieldname, fsw_data, &
             field_loc_center, field_type_scalar)

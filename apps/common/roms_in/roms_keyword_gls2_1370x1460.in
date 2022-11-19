@@ -132,10 +132,10 @@ GridsInLayer =  1
 ! grids, specify values for each grid (see glossary below).
 
    Hadvection == U3       \                     ! temperature
-                 U3                             ! salinity
+                 HSIMT                             ! salinity
 
    Vadvection == C4       \                     ! temperature
-                 C4                             ! salinity
+                 HSIMT                             ! salinity
 
 ! Adjoint-based algorithms can have different horizontal and schemes
 ! for active and inert tracers.
@@ -349,7 +349,22 @@ LtracerSponge == F F                            ! temperature, salinity, inert
 
 ! Generic length-scale turbulence closure parameters.
 
-       GLS_P == 0.0d0                           ! K-epsilon
+!       GLS_P == 0.0d0                           ! k-kl
+!       GLS_M == 1.0d0
+!       GLS_N == 1.0d0
+!    GLS_Kmin == 5.0d-6
+!    GLS_Pmin == 5.0d-6
+
+
+!    GLS_CMU0 == 0.5544d0
+!      GLS_C1 == 0.9d0
+!      GLS_C2 == 0.52d0
+!     GLS_C3M == 2.5d0
+!     GLS_C3P == 1.0d0
+!    GLS_SIGK == 1.96d0
+!    GLS_SIGP == 1.96d0
+
+       GLS_P == 0.0d0                           ! k-kl
        GLS_M == 1.0d0
        GLS_N == 1.0d0
     GLS_Kmin == 5.0d-6
@@ -375,7 +390,7 @@ LtracerSponge == F F                            ! temperature, salinity, inert
 
         RDRG == 3.0d-04                    ! m/s
        RDRG2 == 2.5d-03                    ! nondimensional
-         Zob == 0.02d0                     ! m
+         Zob == 0.001d0                     ! m
          Zos == 0.02d0                     ! m
 
 ! Height (m) of atmospheric measurements for Bulk fluxes parameterization.
@@ -390,8 +405,8 @@ LtracerSponge == F F                            ! temperature, salinity, inert
 
 ! Various parameters.
 
-       WTYPE == 7
-     LEVSFRC == 30
+       WTYPE == 3
+     LEVSFRC == 26
      LEVBFRC == 1
 
 ! Set vertical, terrain-following coordinates transformation equation and

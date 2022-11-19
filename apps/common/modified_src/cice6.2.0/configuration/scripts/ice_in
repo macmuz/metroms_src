@@ -118,7 +118,7 @@
 
 &dynamics_nml
     kdyn            = 1
-    ndte            = 240
+    ndte            = 480
     revised_evp     = .false.
     kevp_kernel     = 0
     brlx            = 300.0
