@@ -797,6 +797,12 @@
              end if
             end do
            end do
+!MACIEJ DIAGNOSTIC
+    IF (IstrR.le.831 .and. IendR.ge.831 .and.&
+        JstrR.le.1388 .and. JendR.ge.1388) then 
+        write(stdout,*) "MACIEJ/frzmlt=",ICE(ng)%qfraz_accum(831,1388)
+    END IF
+!MACIEJ DIAGNOSTIC
 
            CALL ROMS_export2d (ng, tile,                                &
      &                         id, gtype, scale, add_offset,            &

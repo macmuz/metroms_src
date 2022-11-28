@@ -72,6 +72,7 @@
      &                      GRID(ng) % Hz,                              &
      &                      GRID(ng) % z_r,                             &
      &                      OCEAN(ng) % t,                              &
+     &                      OCEAN(ng) % rho,                              &
      &                      ICE(ng) % qfraz,                          &
      &                      ICE(ng) % qfraz_accum)
 # ifdef PROFILE
@@ -91,7 +92,7 @@
 # ifdef WET_DRY
      &                            rmask_wet,                            &
 # endif
-     &                            Hz, z_r, t, qfraz, qfraz_accum)
+     &                            Hz, z_r, t, rho, qfraz, qfraz_accum)
 !***********************************************************************
 !
       USE mod_param
@@ -124,6 +125,7 @@
       real(r8), intent(in) :: Hz(LBi:,LBj:,:)
       real(r8), intent(in) :: z_r(LBi:,LBj:,:)
       real(r8), intent(inout) :: t(LBi:,LBj:,:,:,:)
+      real(r8), intent(in) :: rho(LBi:,LBj:,:)
       real(r8), intent(out) :: qfraz(LBi:,LBj:)
       real(r8), intent(inout) :: qfraz_accum(LBi:,LBj:)
 # else
@@ -136,6 +138,7 @@
       real(r8), intent(in) :: Hz(LBi:UBi,LBj:UBj,N(ng))
       real(r8), intent(in) :: z_r(LBi:UBi,LBj:UBj,N(ng))
       real(r8), intent(inout) :: t(LBi:UBi,LBj:UBj,N(ng),3,NT(ng))
+      real(r8), intent(in) :: rho(LBi:UBi,LBj:UBj,N(ng))
       real(r8), intent(out) :: qfraz(LBi:UBi,LBj:UBj)
       real(r8), intent(inout) :: qfraz_accum(LBi:UBi,LBj:UBj)
 # endif
@@ -163,7 +166,7 @@
 # include "set_bounds.h"
 
       cpw_hat= Cp/Lh_ice
-      rhocp = rho0*Cp
+!      rhocp = rho0*Cp
 
       DO j=Jstr,Jend
         DO i=Istr,Iend
@@ -179,6 +182,7 @@
 !jd To ensure S >= 0, S<0 is unphysical 
                Sold = max(0.0_r8,t(i,j,k,nnew,isalt))
               t_fr = t_freeze(Sold,z_r(i,j,k))
+              rhocp = (1000.0+rho(i,j,k))*Cp
               qfraz_prod= rhocp*Hz(i,j,k) *                             &
      &             max(t_fr - t(i,j,k,nnew,itemp),0.0_r8)
 

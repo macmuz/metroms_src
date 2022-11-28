@@ -164,7 +164,7 @@ class Params(object):
             ['CICEIC',cice_ic],
             ['CICEREST',cicerst_truefalse],
             ['CICERSTTIME',cicerst_truefalse],
-            ['CICEKTENS',"0.6"],
+            ['CICEKTENS',"0.0"],
             ['CICEFYEAR',"1993"],
             ['CICEGRD',"CICE_grid_1370x1460v2.nc"],
             ['CICEKMT',"CICE_KMT_1370x1460v2.nc"],

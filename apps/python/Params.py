@@ -1,1 +1,1 @@
-Params_era5_1370x1460.py
+Params_era5cice_1370x1460.py

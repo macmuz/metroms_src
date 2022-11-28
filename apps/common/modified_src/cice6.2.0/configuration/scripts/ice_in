@@ -118,7 +118,7 @@
 
 &dynamics_nml
     kdyn            = 1
-    ndte            = 480
+    ndte            = 360
     revised_evp     = .false.
     kevp_kernel     = 0
     brlx            = 300.0
@@ -133,7 +133,7 @@
     Cf              = 17.
     Ktens           = 0.
     e_ratio         = 2.
-    seabed_stress   = .false.
+    seabed_stress   = .true.
     seabed_stress_method = 'LKD'
     k1              = 7.5
     k2              = 15.
