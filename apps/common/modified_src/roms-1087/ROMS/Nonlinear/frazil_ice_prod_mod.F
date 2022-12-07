@@ -72,7 +72,7 @@
      &                      GRID(ng) % Hz,                              &
      &                      GRID(ng) % z_r,                             &
      &                      OCEAN(ng) % t,                              &
-     &                      OCEAN(ng) % rho,                              &
+     &                      OCEAN(ng) % pden,                              &
      &                      ICE(ng) % qfraz,                          &
      &                      ICE(ng) % qfraz_accum)
 # ifdef PROFILE
@@ -150,12 +150,13 @@
 
       real(r8), parameter :: Lh_ice = 334000.0_r8
 
-      real(r8), parameter :: z_r_max= -50.0_r8
+      real(r8), parameter :: z_r_max= -5.0_r8
 
 !jd      real(r8), parameter :: Lhat = 79.2_r8
 !jd      real(r8), parameter :: r = 0.5_r8
 
-      real(r8) :: rhocp
+!      real(r8) :: rhocp
+      real(r8) :: rhocp(LBi:UBi,LBj:UBj,N(ng))
       real(r8) :: cpw_hat
       real(r8) :: qfraz_prod  ! Energy to frazil in this layer (T < T_freeze)
       real(r8) :: meltpot     ! Energy available to melt frazil in layer (T>T_freeze)
@@ -167,6 +168,7 @@
 
       cpw_hat= Cp/Lh_ice
 !      rhocp = rho0*Cp
+      rhocp = (1000.0+rho)*Cp
 
       DO j=Jstr,Jend
         DO i=Istr,Iend
@@ -182,11 +184,11 @@
 !jd To ensure S >= 0, S<0 is unphysical 
                Sold = max(0.0_r8,t(i,j,k,nnew,isalt))
               t_fr = t_freeze(Sold,z_r(i,j,k))
-              rhocp = (1000.0+rho(i,j,k))*Cp
-              qfraz_prod= rhocp*Hz(i,j,k) *                             &
+!              rhocp = (1000.0+rho(i,j,k))*Cp
+              qfraz_prod= rhocp(i,j,k)*Hz(i,j,k) *                             &
      &             max(t_fr - t(i,j,k,nnew,itemp),0.0_r8)
 
-              meltpot= rhocp*Hz(i,j,k) *                                & 
+              meltpot= rhocp(i,j,k)*Hz(i,j,k) *                                & 
      &             min(t_fr - t(i,j,k,nnew,itemp),0.0_r8)
 
 
@@ -201,7 +203,7 @@
 
 ! Adjust temperature in accordance with change in qfraz
               t(i,j,k,nnew,itemp) =  t(i,j,k,nnew,itemp) +              &
-     &             (qfraz_prod + meltheat )/(rhocp*Hz(i,j,k))
+     &             (qfraz_prod + meltheat )/(rhocp(i,j,k)*Hz(i,j,k))
 
           END DO
 # ifdef WET_DRY

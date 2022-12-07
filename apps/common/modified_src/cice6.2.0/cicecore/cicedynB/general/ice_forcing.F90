@@ -1023,11 +1023,11 @@
 
          arg = 1
 
-         if (my_task==master_task) then
-           write(nu_diag,*) "MACIEJ,idx,W"
-           write(nu_diag,*) "MIN/MAX",minval(interp_idx),maxval(interp_idx)
-           write(nu_diag,*) "MIN/MAX",minval(interp_W),maxval(interp_W)
-         end if
+!         if (my_task==master_task) then
+!           write(nu_diag,*) "MACIEJ,idx,W"
+!           write(nu_diag,*) "MIN/MAX",minval(interp_idx),maxval(interp_idx)
+!           write(nu_diag,*) "MIN/MAX",minval(interp_W),maxval(interp_W)
+!         end if
 
          call ice_read_nc_interp &
               (fid, nrec, fieldname, field_data(:,:,arg,:), nx_interp,&

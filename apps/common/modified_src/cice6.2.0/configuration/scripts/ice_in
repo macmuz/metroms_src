@@ -134,7 +134,7 @@
     Ktens           = 0.
     e_ratio         = 2.
     seabed_stress   = .true.
-    seabed_stress_method = 'LKD'
+    seabed_stress_method = 'probabilistic'
     k1              = 7.5
     k2              = 15.
     alphab          = 20.
@@ -522,8 +522,8 @@
     f_icepresent   = 'd'
     f_iage         = 'd'
     f_FY           = 'x'
-    f_aicen        = 'x'
-    f_vicen        = 'x'
+    f_aicen        = 'd'
+    f_vicen        = 'd'
     f_vsnon        = 'x'
     f_snowfracn    = 'x'
     f_keffn_top    = 'x'

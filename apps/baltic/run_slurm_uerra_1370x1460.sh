@@ -5,5 +5,5 @@
 #SBATCH -N 12
 #SBATCH --time=72:00:00
 
-./switch_case_run.sh era5cice 1370x1460
+./switch_case_run.sh uerra 1370x1460
 ./run.sh
