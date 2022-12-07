@@ -164,7 +164,7 @@ class Params(object):
             ['CICEREST',cicerst_truefalse],
             ['CICERSTTIME',cicerst_truefalse],
             ['CICEKTENS',"0.7"],
-            ['CICEFYEAR',"1993"],
+            ['CICEFYEAR',"1992"],
             ['CICEGRD',"CICE_grid_1370x1460v2.nc"],
             ['CICEKMT',"CICE_KMT_1370x1460v2.nc"],
             ['CICEBAT',"CICE_bathy_1370x1460v2.nc"],

@@ -1,3 +1,0 @@
-setenv NICECAT   5         # number of ice thickness categories
-setenv NFSDCAT  12         # number of floe size categories
-
