@@ -1,6 +1,7 @@
 #include "cppdefs.h"
       MODULE interp_coeff_mod
 
+#ifdef INPUT_INTERP
       USE mod_parallel
       USE mod_iounits
       USE mod_param
@@ -88,4 +89,5 @@
       END IF
       END SUBROUTINE check
 
+#endif
       END MODULE interp_coeff_mod

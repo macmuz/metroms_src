@@ -365,10 +365,16 @@
       real(r8), dimension(:,:), allocatable :: vw
       real(r8), dimension(:,:), allocatable :: uwater
       real(r8), dimension(:,:), allocatable :: vwater
+      real(r8), dimension(:,:), allocatable :: sst2d
+      real(r8), dimension(:,:), allocatable :: sss2d
+      real(r8), dimension(:,:), allocatable :: rho2d
+      real(r8), dimension(:,:), allocatable :: ml2d
+      real(r8), dimension(:,:,:), allocatable :: rho3d
 
       real(r8) :: mlio
       real(r8) :: dml
       real(r8) :: totml
+      real(r8) :: rho,sst,sss
 
       character (len=*), parameter :: MyFile =                          &
      &  __FILE__
@@ -385,11 +391,19 @@
       allocate(vw(IminS:ImaxS,JminS:JmaxS))
       allocate(uwater(LBi:UBi,LBj:UBj))
       allocate(vwater(LBi:UBi,LBj:UBj))
+      allocate(sst2d(LBi:UBi,LBj:UBj))
+      allocate(sss2d(LBi:UBi,LBj:UBj))
+      allocate(rho2d(LBi:UBi,LBj:UBj))
+      allocate(ml2d(LBi:UBi,LBj:UBj))
+      allocate(rho3d(LBi:UBi,LBj:UBj,N(ng)))
 
       uw=0.0_r8
       vw=0.0_r8
       uwater=0.0_r8
       vwater=0.0_r8
+      sst2d=0.0_r8
+      sss2d=0.0_r8
+      rho3d=1000.0_r8+OCEAN(ng)%pden
 
 
       IF (Master) THEN
@@ -718,7 +732,7 @@
 #  ifdef LMD_SKPP
             mlio = min(MIXING(ng)%hsbl(i,j),-10._r8)
 #  else
-            mlio = -10._r8
+            mlio = -5._r8
 #  endif
             nbot(i,j) = 1
             do k=N(ng),1,-1
@@ -733,6 +747,28 @@
       enddo
 #undef I_RANGE
 #undef J_RANGE
+
+   
+      do j=JstrR,JendR
+       do i=IstrR,IendR
+        totml = 0._r8
+        sst = 0._r8
+        sss = 0._r8
+        rho = 0._r8
+        do k=N(ng),nbot(i,j),-1
+         dml = GRID(ng)%z_w(i,j,k)-GRID(ng)%z_w(i,j,k-1)
+         totml = totml + dml
+
+         sst = sst+OCEAN(ng)%t(i,j,k,NOUT,itemp)*dml
+         sss = sss+OCEAN(ng)%t(i,j,k,NOUT,isalt)*dml
+         rho = rho+rho3d(i,j,k)*dml 
+        end do
+        sst2d(i,j) = sst/totml 
+        sss2d(i,j) = sss/totml
+        rho2d(i,j) = rho/totml
+        ml2d(i,j) = totml 
+       end do
+      end do
 
 !  Schedule sending fields to the cice model.
 !
@@ -751,7 +787,8 @@
             CALL ROMS_export2d (ng, tile,                               &
      &                          id, gtype, scale, add_offset,           &
      &                          LBi, UBi, LBj, UBj,                     &
-     &                          OCEAN(ng)%t(:,:,N(ng),NOUT,itemp),      &
+!     &                          OCEAN(ng)%t(:,:,N(ng),NOUT,itemp),      &
+     &                          sst2d,                                  &
      &                          Fields(id)%ExpMin, Fields(id)%ExpMax,   &
      &                          Asize, A,                               &
      &                          status)
@@ -768,7 +805,8 @@
             CALL ROMS_export2d (ng, tile,                               &
      &                          id, gtype, scale, add_offset,           &
      &                          LBi, UBi, LBj, UBj,                     &
-     &                          OCEAN(ng)%t(:,:,N(ng),NOUT,isalt),      &
+!     &                          OCEAN(ng)%t(:,:,N(ng),NOUT,isalt),      &
+     &                          sss2d,                                  &
      &                          Fields(id)%ExpMin, Fields(id)%ExpMax,   &
      &                          Asize, A,                               &
      &                          status)
@@ -790,19 +828,17 @@
              else
 !jd Assume 5-meter thickness of layer. Here melt potential should be a proper
 !jd weight over a typical mixed (?)/ near-ice layer.
-             ICE(ng)%qfraz_accum(i,j) = rho0*Cp *                       &
-     &        min(t_freeze(OCEAN(ng)%t(i,j,N(ng),NOUT,isalt),0.0_r8)    &
-     &        - OCEAN(ng)%t(i,j,N(ng),NOUT,itemp), 0.0_r8 )             &
-     &        * 5.0_r8 / (ncouple*dt(ng))
+!             ICE(ng)%qfraz_accum(i,j) = rho0*Cp *                       &
+!     &        min(t_freeze(OCEAN(ng)%t(i,j,N(ng),NOUT,isalt),0.0_r8)    &
+!     &        - OCEAN(ng)%t(i,j,N(ng),NOUT,itemp), 0.0_r8 )             &
+!     &        * 5.0_r8 / (ncouple*dt(ng))
+
+              ICE(ng)%qfraz_accum(i,j) = rho2d(i,j) * Cp *               &
+      &        min(t_freeze(max(0._r8,sss2d(i,j)),0.0_r8)-               &
+      &        sst2d(i,j), 0.0_r8 ) * ml2d(i,j) / (ncouple*dt(ng))
              end if
             end do
            end do
-!MACIEJ DIAGNOSTIC
-    IF (IstrR.le.831 .and. IendR.ge.831 .and.&
-        JstrR.le.1388 .and. JendR.ge.1388) then 
-        write(stdout,*) "MACIEJ/frzmlt=",ICE(ng)%qfraz_accum(831,1388)
-    END IF
-!MACIEJ DIAGNOSTIC
 
            CALL ROMS_export2d (ng, tile,                                &
      &                         id, gtype, scale, add_offset,            &
@@ -966,6 +1002,7 @@
 !  Deallocate communication arrays.
 !
       deallocate (A,nbot,uw,vw,uwater,vwater)
+      deallocate (sst2d,sss2d,rho2d,ml2d,rho3d)
 
 #ifdef PROFILE
       CALL wclock_off (ng, iNLM, 36, __LINE__, MyFile)

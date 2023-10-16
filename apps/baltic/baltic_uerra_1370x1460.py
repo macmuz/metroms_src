@@ -17,11 +17,11 @@ from ModelRun import *
 
 
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-rst        = False
+rst        = True
 copyfiles  = True
 #start_date = datetime(2003,10,27)
 start_date = datetime(1992,7,1)
-end_date   = datetime(1995,7,1)
+end_date   = datetime(1994,7,1)
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 

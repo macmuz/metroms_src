@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#SBATCH -J metroms12N
+#SBATCH -J 05NM
 #SBATCH --partition batch
 #SBATCH -N 12
 #SBATCH --time=72:00:00

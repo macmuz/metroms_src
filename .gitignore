@@ -1,0 +1,6 @@
+static_libs/cice/
+static_libs/icepack/
+static_libs/roms_src/
+**/slurm-*
+**/modules-*
+**/env-*

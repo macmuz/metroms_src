@@ -1,1 +1,1 @@
-Params_uerra_1370x1460.py
+Params_uerraGLSold_560x600.py

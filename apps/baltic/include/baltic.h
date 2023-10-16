@@ -1,1 +1,1 @@
-baltic_uerra_1370x1460.h
+baltic_uerraGLSold_560x600.h

@@ -187,9 +187,9 @@ ad_Vadvection == C4       \                     ! temperature
    LBC(isVbar) ==   Clo     Clo     Clo     Red         ! 2D V-momentum
    LBC(isUvel) ==   Clo     Clo     Clo     Rad         ! 3D U-momentum
    LBC(isVvel) ==   Clo     Clo     Clo     Rad         ! 3D V-momentum
-   LBC(isMtke) ==   Clo     Clo     Clo     Rad         ! mixing TKE
+   LBC(isMtke) ==   Clo     Clo     Clo     Gra         ! mixing TKE
 
-   LBC(isTvar) ==   Clo     Clo     Clo     RadNud \       ! temperature
+   LBC(isTvar) ==   Clo     Clo     Clo     RadNud \    ! temperature
                     Clo     Clo     Clo     RadNud         ! salinity
 
 ! Adjoint-based algorithms can have different lateral boundary
@@ -320,14 +320,14 @@ LtracerSponge == F F                            ! temperature, salinity, inert
 ! Vertical mixing coefficients for tracers in nonlinear model and
 ! basic state scale factor in adjoint-based algorithms: [1:NAT+NPT,Ngrids]
 
-     AKT_BAK == 1.0d-3 1.0d-3                   ! m2/s
+     AKT_BAK == 1.0d-6 1.0d-6                   ! m2/s
 
   ad_AKT_fac == 1.0d0  1.0d0                    ! nondimensional
 
 ! Vertical mixing coefficient for momentum for nonlinear model and
 ! basic state scale factor in adjoint-based algorithms: [Ngrids].
 
-     AKV_BAK == 1.0d-2                          ! m2/s
+     AKV_BAK == 1.0d-5                          ! m2/s
 
   ad_AKV_fac == 1.0d0                           ! nondimensional
 
@@ -342,8 +342,8 @@ LtracerSponge == F F                            ! temperature, salinity, inert
 
 ! Turbulent closure parameters.
 
-     AKK_BAK == 5.0d-6                          ! m2/s
-     AKP_BAK == 5.0d-6                          ! m2/s
+     AKK_BAK == 5.0d-7                          ! m2/s
+     AKP_BAK == 5.0d-7                          ! m2/s
       TKENU2 == 0.0d0                           ! m2/s
       TKENU4 == 0.0d0                           ! m4/s
 
@@ -373,8 +373,8 @@ LtracerSponge == F F                            ! temperature, salinity, inert
 ! Constants used in momentum stress computation.
 
         RDRG == 3.0d-04                    ! m/s
-       RDRG2 == 3.0d-03                    ! nondimensional
-         Zob == 0.02d0                     ! m
+       RDRG2 == 2.5d-03                    ! nondimensional
+         Zob == 0.001d0                     ! m
          Zos == 0.02d0                     ! m
 
 ! Height (m) of atmospheric measurements for Bulk fluxes parameterization.
@@ -407,7 +407,7 @@ LtracerSponge == F F                            ! temperature, salinity, inert
 
 ! Mean Density and Brunt-Vaisala frequency.
 
-        RHO0 =  1025.0d0                   ! kg/m3
+        RHO0 =  1006.0d0                   ! kg/m3
      BVF_BAK =  1.0d-5                     ! 1/s2
 
 ! If tide generating forces, set switch (T/F) to apply a 18.6-year lunar
@@ -427,9 +427,9 @@ LtracerSponge == F F                            ! temperature, salinity, inert
 ! internally, [1:Ngrids].
 
        TNUDG == _TNUDG_                    ! days
-       ZNUDG == 6.0d0                      ! days
-      M2NUDG == 6.0d0                      ! days
-      M3NUDG == 6.0d0                      ! days
+       ZNUDG == 0.0d0                      ! days
+      M2NUDG == 0.0d0                      ! days
+      M3NUDG == 0.0d0                      ! days
 
 ! Factor between passive (outflow) and active (inflow) open boundary
 ! conditions, [1:Ngrids]. If OBCFAC > 1, nudging on inflow is stronger
@@ -464,7 +464,7 @@ LtracerSponge == F F                            ! temperature, salinity, inert
 ! (like river runoff) and to specify which tracer variables to consider:
 ! [1:NAT+NPT,Ngrids].  See glossary below for details.
 
-  LtracerSrc == T T                        ! temperature, salinity, inert
+  LtracerSrc == F T                        ! temperature, salinity, inert
 
 ! Logical switches (TRUE/FALSE) to read and process climatology fields.
 ! See glossary below for details.
@@ -756,8 +756,8 @@ Aout(idu3dE) == F       ! u_eastward         3D U-eastward  at RHO-points
 Aout(idv3dN) == F       ! v_northward        3D V-northward at RHO-points
 Aout(idWvel) == T       ! w                  3D W-velocity
 Aout(idOvel) == F       ! omega              omega vertical velocity
-Aout(idUbar) == T       ! ubar               2D U-velocity
-Aout(idVbar) == T       ! vbar               2D V-velocity
+Aout(idUbar) == F       ! ubar               2D U-velocity
+Aout(idVbar) == F       ! vbar               2D V-velocity
 Aout(idu2dE) == F       ! ubar_eastward      2D U-eastward  at RHO-points
 Aout(idv2dN) == F       ! vbar_northward     2D V-northward at RHO-points
 Aout(idFsur) == T       ! zeta               free-surface
@@ -787,23 +787,23 @@ Aout(idV3rs) == F       ! v_Rstress          3D V-radiation stress
 Aout(idU3Sd) == F       ! u_stokes           3D U-Stokes velocity
 Aout(idV3Sd) == F       ! v_stokes           3D V-Stokes velocity
 
-Aout(idPair) == T       ! Pair               surface air pressure
-Aout(idTair) == T       ! Tair               surface air temperature
-Aout(idUair) == T       ! Uair               surface U-wind component
-Aout(idVair) == T       ! Vair               surface V-wind component
+Aout(idPair) == F       ! Pair               surface air pressure
+Aout(idTair) == F       ! Tair               surface air temperature
+Aout(idUair) == F       ! Uair               surface U-wind component
+Aout(idVair) == F       ! Vair               surface V-wind component
 
 Aout(idTsur) == F F     ! shflux, ssflux     surface net heat and salt flux
 Aout(idLhea) == F       ! latent             latent heat flux
 Aout(idShea) == F       ! sensible           sensible heat flux
-Aout(idLrad) == T       ! lwrad              longwave radiation flux
-Aout(idSrad) == T       ! swrad              shortwave radiation flux
+Aout(idLrad) == F       ! lwrad              longwave radiation flux
+Aout(idSrad) == F       ! swrad              shortwave radiation flux
 Aout(idevap) == F       ! evaporation        evaporation rate
 Aout(idrain) == F       ! rain               precipitation rate
 
 Aout(idDano) == F       ! rho                density anomaly
 Aout(idVvis) == T       ! AKv                vertical viscosity
 Aout(idTdif) == T       ! AKt                vertical T-diffusion
-Aout(idSdif) == F       ! AKs                vertical Salinity diffusion
+Aout(idSdif) == T       ! AKs                vertical Salinity diffusion
 Aout(idHsbl) == F       ! Hsbl               depth of surface boundary layer
 Aout(idHbbl) == F       ! Hbbl               depth of bottom boundary layer
 
@@ -909,7 +909,7 @@ Dout(iTvdif) == F F     ! temp_vdiff, ...    vertical diffusion
 !   [3] parallel read and serial write of NetCDF4/HDF5
 !   [4] parallel read and write of NETCDF4/HDF5
 
-  PIO_METHOD =  4
+  PIO_METHOD =  2
 
 ! PIO library MPI processes set-up:
 
@@ -1073,9 +1073,6 @@ PIO_I2C_Preq = 65                 ! Maximum pending I2C requests
      northBCIstr = NBCISTR !maciej
      northBCIend = NBCIEND !maciej
      northBCJ = NBCJ    !maciej
-     nx_interp = 560
-     ny_interp = 600
-     interp_file = /users/work/mmuzyka/CSDIR/input_1370x1460/out_05NM.nc
 
 !
 !  GLOSSARY:

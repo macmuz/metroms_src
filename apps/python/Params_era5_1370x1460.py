@@ -38,10 +38,9 @@ class Params(object):
             self.DELTAT=60
             self.CICEDELTAT=900
             self.COUPLINGTIME_I2O=900
-            self.ROMSINFOLDER="/users/work/mmuzyka/CSDIR/input_1370x1460"
-            self.ROMSFORCING="/users/work/mmuzyka/programs/ERA5"
-            self.ROMSINIFILE = self.ROMSINFOLDER+"/ROMS_grid_05NM_015v2_filter_initial_full.nc"
-#            self.ROMSINIFILE = self.RUNPATH+"/ocean_rst_1999-11-27.nc"
+            self.ROMSINFOLDER="/users/work/mmuzyka/CSDIR/input_wider"
+            self.ROMSFORCING="/users/work/mmuzyka/CSDIR/forcing_560x600"
+            self.ROMSINIFILE = self.ROMSINFOLDER+"/ROMS_grid_05NM_wider_filter_initial_full.nc"
             if restart == True:
                 f = open(self.CICERUNDIR+'/restart/ice.restart_file', 'r')
                 cice_restartfile = f.readline().strip()
@@ -72,9 +71,9 @@ class Params(object):
             ['GRDTHETAB',"1.5d0"],
             ['GRDTCLINE',"20.0d0"],            
             ['_TNU2_',"0.0d2  0.0d2"],
-            ['_TNU4_',"1.0d6  1.0d6"],
+            ['_TNU4_',"2.9d5  2.9d5"],
             ['_VISC2_',"0.0d0"],
-            ['_VISC4_',"1.0d7"],
+            ['_VISC4_',"1.0d6"],
             ['XCPU',str(self.XCPU)],
             ['YCPU',str(self.YCPU)],
             ['TSTEPS',str(self.FCLEN/self.DELTAT-cice_rst_time*self.CICEDELTAT/self.DELTAT)],
@@ -84,62 +83,80 @@ class Params(object):
             ['RSTSTEP',str(240*3600/int(self.DELTAT))],
             ['STASTEP',str(0*3600/int(self.DELTAT))],
             ['INFOSTEP',str(1*3600/int(self.DELTAT))],
-            ['HISSTEPP',str(0*3600/int(self.DELTAT))],
+            ['HISSTEPP',str(24*3600/int(self.DELTAT))],
             ['AVGSTEPP',str(6*3600/int(self.DELTAT))],
             ['STARTAVG',"1"],
             ['DEFAVGSTEP',str(24*3600/int(self.DELTAT))],  #if 0; all output in one avg-file
             ['STARTTIME',str((start_date-self.TIMEREF).total_seconds()/86400)],
             ['TIDEREF',str((start_date-self.TIMEREF).total_seconds()/86400)],
-            ['DEFHISSTEP',str(0*3600/int(self.DELTAT))],
+            ['DEFHISSTEP',str(24*3600/int(self.DELTAT))],
             ['TIMEREF',self.TIMEREF.strftime("%Y%m%d.00")],
             ['V_TRANS',"2"],
             ['_TNUDG_',"6.0d0 6.0d0"],
             ['V_STRETCH',"4"],
             ['OBCFAKTOR',"10.0"],
             ['NUDGZONEWIDTH',"10"],
-            ['GRDFILE',self.ROMSINFOLDER+"/ROMS_grid_05NM_015v2_filter.nc"],
+            ['GRDFILE',self.ROMSINFOLDER+"/ROMS_grid_05NM_wider_filter.nc"],
             ['INIFILE',self.ROMSINIRST],
             ['RUNDIR',self.RUNPATH],
             ['RIVERFILE',\
-                self.ROMSINFOLDER+"/rivers_1470x1360_2016.nc | \n"+\
-                self.ROMSINFOLDER+"/rivers_1470x1360_2017.nc | \n"+\
-                self.ROMSINFOLDER+"/rivers_1470x1360_2018.nc | \n"+\
-                self.ROMSINFOLDER+"/rivers_1470x1360_2019.nc"],
+                self.ROMSINFOLDER+"/rivers_1370x1460x26_1993_vshape3.nc | \n"+\
+                self.ROMSINFOLDER+"/rivers_1370x1460x26_1994_vshape3.nc | \n"+\
+                self.ROMSINFOLDER+"/rivers_1370x1460x26_1995_vshape3.nc | \n"+\
+                self.ROMSINFOLDER+"/rivers_1370x1460x26_1996_vshape3.nc | \n"+\
+                self.ROMSINFOLDER+"/rivers_1370x1460x26_1997_vshape3.nc | \n"+\
+                self.ROMSINFOLDER+"/rivers_1370x1460x26_1998_vshape3.nc"],
             ['_BRYNAME_',\
-                self.ROMSINFOLDER+"/ROMS_grid_05NM_015v2_filter_bc_obs_zeta_2016.nc | \n"+\
-                self.ROMSINFOLDER+"/ROMS_grid_05NM_015v2_filter_bc_obs_zeta_2017.nc | \n"+\
-                self.ROMSINFOLDER+"/ROMS_grid_05NM_015v2_filter_bc_obs_zeta_2018.nc | \n"+\
-                self.ROMSINFOLDER+"/ROMS_grid_05NM_015v2_filter_bc_obs_zeta_2019.nc"],
+                self.ROMSINFOLDER+"/ROMS_grid_05NM_wider_filter_bc_obs_zeta_1993.nc | \n"+\
+                self.ROMSINFOLDER+"/ROMS_grid_05NM_wider_filter_bc_obs_zeta_1994.nc | \n"+\
+                self.ROMSINFOLDER+"/ROMS_grid_05NM_wider_filter_bc_obs_zeta_1995.nc | \n"+\
+                self.ROMSINFOLDER+"/ROMS_grid_05NM_wider_filter_bc_obs_zeta_1996.nc | \n"+\
+                self.ROMSINFOLDER+"/ROMS_grid_05NM_wider_filter_bc_obs_zeta_1997.nc | \n"+\
+                self.ROMSINFOLDER+"/ROMS_grid_05NM_wider_filter_bc_obs_zeta_1998.nc"],
             ['TIDEDIR',self.RUNPATH],
             ['ATMDIR',\
-                self.ROMSFORCING+"/baltic_lwrad_down_2016.nc | \n"+\
-                self.ROMSFORCING+"/baltic_lwrad_down_2017.nc | \n"+\
-                self.ROMSFORCING+"/baltic_lwrad_down_2018.nc | \n"+\
-                self.ROMSFORCING+"/baltic_lwrad_down_2019.nc \ \n"+\
-                self.ROMSFORCING+"/baltic_Pair_2016.nc | \n"+\
-                self.ROMSFORCING+"/baltic_Pair_2017.nc | \n"+\
-                self.ROMSFORCING+"/baltic_Pair_2018.nc | \n"+\
-                self.ROMSFORCING+"/baltic_Pair_2019.nc \ \n"+\
-                self.ROMSFORCING+"/baltic_Qair_2016.nc | \n"+\
-                self.ROMSFORCING+"/baltic_Qair_2017.nc | \n"+\
-                self.ROMSFORCING+"/baltic_Qair_2018.nc | \n"+\
-                self.ROMSFORCING+"/baltic_Qair_2019.nc \ \n"+\
-                self.ROMSFORCING+"/baltic_rain_2016.nc | \n"+\
-                self.ROMSFORCING+"/baltic_rain_2017.nc | \n"+\
-                self.ROMSFORCING+"/baltic_rain_2018.nc | \n"+\
-                self.ROMSFORCING+"/baltic_rain_2019.nc \ \n"+\
-                self.ROMSFORCING+"/baltic_swrad_2016.nc | \n"+\
-                self.ROMSFORCING+"/baltic_swrad_2017.nc | \n"+\
-                self.ROMSFORCING+"/baltic_swrad_2018.nc | \n"+\
-                self.ROMSFORCING+"/baltic_swrad_2019.nc \ \n"+\
-                self.ROMSFORCING+"/baltic_Tair_2016.nc | \n"+\
-                self.ROMSFORCING+"/baltic_Tair_2017.nc | \n"+\
-                self.ROMSFORCING+"/baltic_Tair_2018.nc | \n"+\
-                self.ROMSFORCING+"/baltic_Tair_2019.nc \ \n"+\
-                self.ROMSFORCING+"/baltic_wind_2016.nc | \n"+\
-                self.ROMSFORCING+"/baltic_wind_2017.nc | \n"+\
-                self.ROMSFORCING+"/baltic_wind_2018.nc | \n"+\
-                self.ROMSFORCING+"/baltic_wind_2019.nc"],
+                self.ROMSFORCING+"/baltic_lwrad_down_1993.nc | \n"+\
+                self.ROMSFORCING+"/baltic_lwrad_down_1994.nc | \n"+\
+                self.ROMSFORCING+"/baltic_lwrad_down_1995.nc | \n"+\
+                self.ROMSFORCING+"/baltic_lwrad_down_1996.nc | \n"+\
+                self.ROMSFORCING+"/baltic_lwrad_down_1997.nc | \n"+\
+                self.ROMSFORCING+"/baltic_lwrad_down_1998.nc \ \n"+\
+                self.ROMSFORCING+"/baltic_Pair_1993.nc | \n"+\
+                self.ROMSFORCING+"/baltic_Pair_1994.nc | \n"+\
+                self.ROMSFORCING+"/baltic_Pair_1995.nc | \n"+\
+                self.ROMSFORCING+"/baltic_Pair_1996.nc | \n"+\
+                self.ROMSFORCING+"/baltic_Pair_1997.nc | \n"+\
+                self.ROMSFORCING+"/baltic_Pair_1998.nc \ \n"+\
+                self.ROMSFORCING+"/baltic_Qair_1993.nc | \n"+\
+                self.ROMSFORCING+"/baltic_Qair_1994.nc | \n"+\
+                self.ROMSFORCING+"/baltic_Qair_1995.nc | \n"+\
+                self.ROMSFORCING+"/baltic_Qair_1996.nc | \n"+\
+                self.ROMSFORCING+"/baltic_Qair_1997.nc | \n"+\
+                self.ROMSFORCING+"/baltic_Qair_1998.nc \ \n"+\
+                self.ROMSFORCING+"/baltic_rain_1993.nc | \n"+\
+                self.ROMSFORCING+"/baltic_rain_1994.nc | \n"+\
+                self.ROMSFORCING+"/baltic_rain_1995.nc | \n"+\
+                self.ROMSFORCING+"/baltic_rain_1996.nc | \n"+\
+                self.ROMSFORCING+"/baltic_rain_1997.nc | \n"+\
+                self.ROMSFORCING+"/baltic_rain_1998.nc \ \n"+\
+                self.ROMSFORCING+"/baltic_swrad_1993.nc | \n"+\
+                self.ROMSFORCING+"/baltic_swrad_1994.nc | \n"+\
+                self.ROMSFORCING+"/baltic_swrad_1995.nc | \n"+\
+                self.ROMSFORCING+"/baltic_swrad_1996.nc | \n"+\
+                self.ROMSFORCING+"/baltic_swrad_1997.nc | \n"+\
+                self.ROMSFORCING+"/baltic_swrad_1998.nc \ \n"+\
+                self.ROMSFORCING+"/baltic_Tair_1993.nc | \n"+\
+                self.ROMSFORCING+"/baltic_Tair_1994.nc | \n"+\
+                self.ROMSFORCING+"/baltic_Tair_1995.nc | \n"+\
+                self.ROMSFORCING+"/baltic_Tair_1996.nc | \n"+\
+                self.ROMSFORCING+"/baltic_Tair_1997.nc | \n"+\
+                self.ROMSFORCING+"/baltic_Tair_1998.nc \ \n"+\
+                self.ROMSFORCING+"/baltic_wind_1993.nc | \n"+\
+                self.ROMSFORCING+"/baltic_wind_1994.nc | \n"+\
+                self.ROMSFORCING+"/baltic_wind_1995.nc | \n"+\
+                self.ROMSFORCING+"/baltic_wind_1996.nc | \n"+\
+                self.ROMSFORCING+"/baltic_wind_1997.nc | \n"+\
+                self.ROMSFORCING+"/baltic_wind_1998.nc"],
             ['FORCEFILES',"7"], # The files should be specified here as well
             ['COUPLINGTIMEI2O',str(self.COUPLINGTIME_I2O)],
             ['ROMSINFILE', self.ROMSINFILE ],
@@ -147,7 +164,7 @@ class Params(object):
             ['NUMROMSCORES',str(int(self.XCPU)*int(self.YCPU))],
             ['NUMCICECORES',str(int(self.CICECPU))],
             ['NBCISTR', str(149) ],
-            ['NBCIEND', str(210) ],
+            ['NBCIEND', str(215) ],
             ['NBCJ', str(492) ]
             ]
             ########################################################################
@@ -164,11 +181,11 @@ class Params(object):
             ['CICEIC',cice_ic],
             ['CICEREST',cicerst_truefalse],
             ['CICERSTTIME',cicerst_truefalse],
-            ['CICEKTENS',"0.0"],
-            ['CICEFYEAR',"1993"],
-            ['CICEGRD',"CICE_grid_1370x1460v2.nc"],
-            ['CICEKMT',"CICE_KMT_1370x1460v2.nc"],
-            ['CICEBAT',"CICE_bathy_1370x1460v2.nc"],
+            ['CICEKTENS',"0.2"],
+            ['CICEFYEAR',"1992"],
+            ['CICEGRD',"CICE_grid_1370x1460_wider.nc"],
+            ['CICEKMT',"CICE_KMT_1370x1460_wider.nc"],
+            ['CICEBAT',"CICE_bathy_1370x1460_wider.nc"],
             ]
             ########################################################################
             ########################################################################

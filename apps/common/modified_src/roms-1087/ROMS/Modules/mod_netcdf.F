@@ -796,6 +796,7 @@
               EXIT
             END IF
           CASE ('xi_rho')
+#ifdef INPUT_INTERP
             IF (dim_size(i).ne.nx_interp) THEN
               IF (Master) WRITE (stdout,10) TRIM(dim_name(i)),          &
      &                                      dim_size(i),                &
@@ -804,7 +805,18 @@
               exit_flag=2
               EXIT
             END IF
+#else
+            IF (dim_size(i).ne.IOBOUNDS(ng)%xi_rho) THEN
+              IF (Master) WRITE (stdout,10) TRIM(dim_name(i)),          &
+     &                                      dim_size(i),                &
+     &                                      IOBOUNDS(ng)%xi_rho,        &
+     &                                      TRIM(ncname)
+              exit_flag=2
+              EXIT
+            END IF
+#endif
           CASE ('eta_rho')
+#ifdef INPUT_INTERP
             IF (dim_size(i).ne.ny_interp) THEN
               IF (Master) WRITE (stdout,10) TRIM(dim_name(i)),          &
      &                                      dim_size(i),                &
@@ -813,6 +825,16 @@
               exit_flag=2
               EXIT
             END IF
+#else
+            IF (dim_size(i).ne.IOBOUNDS(ng)%eta_rho) THEN
+              IF (Master) WRITE (stdout,10) TRIM(dim_name(i)),          &
+     &                                      dim_size(i),                &
+     &                                      IOBOUNDS(ng)%eta_rho,       &
+     &                                      TRIM(ncname)
+              exit_flag=2
+              EXIT
+            END IF
+#endif
           CASE ('xi_u')
             IF (dim_size(i).ne.IOBOUNDS(ng)%xi_u) THEN
               IF (Master) WRITE (stdout,10) TRIM(dim_name(i)),          &

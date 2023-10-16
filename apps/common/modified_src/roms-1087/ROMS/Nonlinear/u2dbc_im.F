@@ -1114,6 +1114,8 @@
               cff2=1.0_r8/(1.0_r8+Ce)
               ubar(i,Jtmp+1,kout)=cff2*(ubar(i,Jtmp+1,know)+            &
      &                                  Ce*ubar(i,Jtmp,kout))
+              ubar(i,Jtmp+1,kout)=abs(ubar(i,Jtmp+1,kout))*             &
+     &         min(abs(ubar(i,Jtmp+1,kout)),0.3)/ubar(i,Jtmp+1,kout)
 #ifdef MASKING
               ubar(i,Jtmp+1,kout)=ubar(i,Jtmp+1,kout)*                  &
      &                            GRID(ng)%umask(i,Jtmp+1)

@@ -802,6 +802,8 @@
      &                            dt2d*(bry_pgr+                        &
      &                                  bry_cor+                        &
      &                                  bry_str)
+              vbar(i,Jtmp+1,kout)=abs(vbar(i,Jtmp+1,kout))*             &
+     &         min(abs(vbar(i,Jtmp+1,kout)),0.3)/vbar(i,Jtmp+1,kout)
 #ifdef MASKING
               vbar(i,Jtmp+1,kout)=vbar(i,Jtmp+1,kout)*                  &
      &                            GRID(ng)%vmask(i,Jtmp+1)

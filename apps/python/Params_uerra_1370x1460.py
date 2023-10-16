@@ -71,9 +71,9 @@ class Params(object):
             ['GRDTHETAB',"1.5d0"],
             ['GRDTCLINE',"20.0d0"],            
             ['_TNU2_',"0.0d2  0.0d2"],
-            ['_TNU4_',"5.0d5  5.0d5"],
+            ['_TNU4_',"2.9d5  2.9d5"],
             ['_VISC2_',"0.0d0"],
-            ['_VISC4_',"2.5d6"],
+            ['_VISC4_',"1.0d6"],
             ['XCPU',str(self.XCPU)],
             ['YCPU',str(self.YCPU)],
             ['TSTEPS',str(self.FCLEN/self.DELTAT-cice_rst_time*self.CICEDELTAT/self.DELTAT)],
@@ -83,13 +83,13 @@ class Params(object):
             ['RSTSTEP',str(240*3600/int(self.DELTAT))],
             ['STASTEP',str(0*3600/int(self.DELTAT))],
             ['INFOSTEP',str(1*3600/int(self.DELTAT))],
-            ['HISSTEPP',str(0*3600/int(self.DELTAT))],
+            ['HISSTEPP',str(24*3600/int(self.DELTAT))],
             ['AVGSTEPP',str(6*3600/int(self.DELTAT))],
             ['STARTAVG',"1"],
             ['DEFAVGSTEP',str(24*3600/int(self.DELTAT))],  #if 0; all output in one avg-file
             ['STARTTIME',str((start_date-self.TIMEREF).total_seconds()/86400)],
             ['TIDEREF',str((start_date-self.TIMEREF).total_seconds()/86400)],
-            ['DEFHISSTEP',str(0*3600/int(self.DELTAT))],
+            ['DEFHISSTEP',str(24*3600/int(self.DELTAT))],
             ['TIMEREF',self.TIMEREF.strftime("%Y%m%d.00")],
             ['V_TRANS',"2"],
             ['_TNUDG_',"6.0d0 6.0d0"],
@@ -105,10 +105,10 @@ class Params(object):
                 self.ROMSINFOLDER+"/rivers_1470x1360x26_1994_vshape3.nc | \n"+\
                 self.ROMSINFOLDER+"/rivers_1470x1360x26_1995_vshape3.nc"],
             ['_BRYNAME_',\
-                self.ROMSINFOLDER+"/ROMS_grid_05NM_015v2_filter_bc_obs_zeta_1992.nc | \n"+\
-                self.ROMSINFOLDER+"/ROMS_grid_05NM_015v2_filter_bc_obs_zeta_1993.nc | \n"+\
-                self.ROMSINFOLDER+"/ROMS_grid_05NM_015v2_filter_bc_obs_zeta_1994.nc | \n"+\
-                self.ROMSINFOLDER+"/ROMS_grid_05NM_015v2_filter_bc_obs_zeta_1995.nc"],
+                self.ROMSINFOLDER+"/ROMS_grid_05NM_015v2_filter_bc_obs_zeta_new_1992.nc | \n"+\
+                self.ROMSINFOLDER+"/ROMS_grid_05NM_015v2_filter_bc_obs_zeta_new_1993.nc | \n"+\
+                self.ROMSINFOLDER+"/ROMS_grid_05NM_015v2_filter_bc_obs_zeta_new_1994.nc | \n"+\
+                self.ROMSINFOLDER+"/ROMS_grid_05NM_015v2_filter_bc_obs_zeta_new_1995.nc"],
             ['TIDEDIR',self.RUNPATH],
             ['ATMDIR',\
                 self.ROMSFORCING+"/baltic_lwrad_down_1992.nc | \n"+\

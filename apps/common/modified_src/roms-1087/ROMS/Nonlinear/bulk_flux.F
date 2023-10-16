@@ -446,6 +446,8 @@
         END DO
       END DO
 #endif
+   where(Uair.gt.18.0) Uair = 18.0
+   where(Vair.gt.18.0) Vair = 18.0
 !
 !  Compute Atmosphere-ocean fluxes using a bulk flux parameterization.
 !

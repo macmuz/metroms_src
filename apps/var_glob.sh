@@ -1,1 +1,1 @@
-var_glob_uerra_1370x1460.sh
+var_glob_uerraGLSold_560x600.sh
