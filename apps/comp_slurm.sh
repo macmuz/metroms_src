@@ -5,4 +5,4 @@
 #SBATCH --time=00:15:00
 
 sed -i "s@HOME=.*@HOME=${HOME}@" modules.sh
-env -i comp.sh
+env -i ./comp.sh

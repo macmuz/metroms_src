@@ -18,7 +18,7 @@ export MCT_DIR=${METROMS_CASEDIR}/MCT
 cd $MCT_DIR
 
 
-./configure FC=$FORT CC=$CC --prefix=$MCT_DIR
+./configure FC=$FORT CC=$CC MPIFC=$MPIFC --prefix=$MCT_DIR
 make install
 make clean
 

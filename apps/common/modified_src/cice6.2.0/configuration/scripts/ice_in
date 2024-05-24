@@ -230,7 +230,7 @@
     oceanmixed_file = 'unknown_oceanmixed_file'
     nx_interp       = 560
     ny_interp       = 600
-    interp_file     = '/users/work/mmuzyka/CSDIR/input_560x600/out_1_25NM.nc'
+    interp_file     = '/users/project1/pt00625/CSDIR/input_october/out_1_25NM.nc'
 /
 
 &domain_nml

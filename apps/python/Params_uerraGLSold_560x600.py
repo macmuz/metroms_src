@@ -101,36 +101,36 @@ class Params(object):
             ['INIFILE',self.ROMSINIRST],
             ['RUNDIR',self.RUNPATH],
             ['RIVERFILE',\
-                self.ROMSINFOLDER+"/rivers_era5v2_vertical_1993_Lw.nc | \n"+\
-                self.ROMSINFOLDER+"/rivers_era5v2_vertical_1994_Lw.nc | \n"+\
-                self.ROMSINFOLDER+"/rivers_era5v2_vertical_1995_Lw.nc"],
+                self.ROMSINFOLDER+"/rivers_era5v2_vertical_1995_Lw.nc | \n"+\
+                self.ROMSINFOLDER+"/rivers_era5v2_vertical_1996_Lw.nc | \n"+\
+                self.ROMSINFOLDER+"/rivers_era5v2_vertical_1997_Lw.nc"],
             ['_BRYNAME_',\
-                self.ROMSINFOLDER+"/ROMS_grid_2_3km_560x600_NetCDF4_bc_bar_sla_1993.nc | \n"+\
-                self.ROMSINFOLDER+"/ROMS_grid_2_3km_560x600_NetCDF4_bc_bar_sla_1994.nc | \n"+\
-                self.ROMSINFOLDER+"/ROMS_grid_2_3km_560x600_NetCDF4_bc_bar_sla_1995.nc"],
+                self.ROMSINFOLDER+"/ROMS_grid_2_3km_560x600_NetCDF4_bc_bar_sla_1995.nc | \n"+\
+                self.ROMSINFOLDER+"/ROMS_grid_2_3km_560x600_NetCDF4_bc_bar_sla_1996.nc | \n"+\
+                self.ROMSINFOLDER+"/ROMS_grid_2_3km_560x600_NetCDF4_bc_bar_sla_1997.nc"],
             ['TIDEDIR',self.RUNPATH],
             ['ATMDIR',\
-                self.ROMSFORCING+"/baltic_lwrad_down_1993.nc | \n"+\
-                self.ROMSFORCING+"/baltic_lwrad_down_1994.nc | \n"+\
-                self.ROMSFORCING+"/baltic_lwrad_down_1995.nc \ \n"+\
-                self.ROMSFORCING+"/baltic_Pair_1993.nc | \n"+\
-                self.ROMSFORCING+"/baltic_Pair_1994.nc | \n"+\
-                self.ROMSFORCING+"/baltic_Pair_1995.nc \ \n"+\
-                self.ROMSFORCING+"/baltic_Qair_1993.nc | \n"+\
-                self.ROMSFORCING+"/baltic_Qair_1994.nc | \n"+\
-                self.ROMSFORCING+"/baltic_Qair_1995.nc \ \n"+\
-                self.ROMSFORCING+"/baltic_rain_1993.nc | \n"+\
-                self.ROMSFORCING+"/baltic_rain_1994.nc | \n"+\
-                self.ROMSFORCING+"/baltic_rain_1995.nc \ \n"+\
-                self.ROMSFORCING+"/baltic_swrad_1993.nc | \n"+\
-                self.ROMSFORCING+"/baltic_swrad_1994.nc | \n"+\
-                self.ROMSFORCING+"/baltic_swrad_1995.nc \ \n"+\
-                self.ROMSFORCING+"/baltic_Tair_1993.nc | \n"+\
-                self.ROMSFORCING+"/baltic_Tair_1994.nc | \n"+\
-                self.ROMSFORCING+"/baltic_Tair_1995.nc \ \n"+\
-                self.ROMSFORCING+"/baltic_wind_1993.nc | \n"+\
-                self.ROMSFORCING+"/baltic_wind_1994.nc | \n"+\
-                self.ROMSFORCING+"/baltic_wind_1995.nc"],
+                self.ROMSFORCING+"/baltic_lwrad_down_1995.nc | \n"+\
+                self.ROMSFORCING+"/baltic_lwrad_down_1996.nc | \n"+\
+                self.ROMSFORCING+"/baltic_lwrad_down_1997.nc \ \n"+\
+                self.ROMSFORCING+"/baltic_Pair_1995.nc | \n"+\
+                self.ROMSFORCING+"/baltic_Pair_1996.nc | \n"+\
+                self.ROMSFORCING+"/baltic_Pair_1997.nc \ \n"+\
+                self.ROMSFORCING+"/baltic_Qair_1995.nc | \n"+\
+                self.ROMSFORCING+"/baltic_Qair_1996.nc | \n"+\
+                self.ROMSFORCING+"/baltic_Qair_1997.nc \ \n"+\
+                self.ROMSFORCING+"/baltic_rain_1995.nc | \n"+\
+                self.ROMSFORCING+"/baltic_rain_1996.nc | \n"+\
+                self.ROMSFORCING+"/baltic_rain_1997.nc \ \n"+\
+                self.ROMSFORCING+"/baltic_swrad_1995.nc | \n"+\
+                self.ROMSFORCING+"/baltic_swrad_1996.nc | \n"+\
+                self.ROMSFORCING+"/baltic_swrad_1997.nc \ \n"+\
+                self.ROMSFORCING+"/baltic_Tair_1995.nc | \n"+\
+                self.ROMSFORCING+"/baltic_Tair_1996.nc | \n"+\
+                self.ROMSFORCING+"/baltic_Tair_1997.nc \ \n"+\
+                self.ROMSFORCING+"/baltic_wind_1995.nc | \n"+\
+                self.ROMSFORCING+"/baltic_wind_1996.nc | \n"+\
+                self.ROMSFORCING+"/baltic_wind_1997.nc"],
             ['FORCEFILES',"7"], # The files should be specified here as well
             ['COUPLINGTIMEI2O',str(self.COUPLINGTIME_I2O)],
             ['ROMSINFILE', self.ROMSINFILE ],

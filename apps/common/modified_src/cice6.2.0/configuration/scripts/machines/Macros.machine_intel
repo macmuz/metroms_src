@@ -22,10 +22,10 @@ else
   FFLAGS     += -O2
 endif
 
-SCC   := icc 
+SCC   := icx 
 SFC   := ifort
-MPICC := mpicc
-MPIFC := mpif90
+MPICC := mpiicx
+MPIFC := mpiifort
 
 ifeq ($(ICE_COMMDIR), mpi)
   FC := $(MPIFC)

@@ -1,9 +1,9 @@
 #!/bin/bash
 
-#SBATCH -J 05test
+#SBATCH -J mber4MY
 #SBATCH --partition batch
-#SBATCH -N 12
+#SBATCH -N 8
 #SBATCH --time=72:00:00
 
-./switch_case_run.sh era5test1 1370x1460
+./switch_case_run.sh november4MY 560x600
 ./run.sh

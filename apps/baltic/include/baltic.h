@@ -1,1 +1,1 @@
-baltic_uerraGLSold_560x600.h
+baltic_kepsilon3_560x600.h

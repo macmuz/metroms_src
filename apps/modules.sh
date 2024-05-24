@@ -9,4 +9,4 @@ export KMP_STACKSIZE=274877906944
 export HOME=/users/kdm/mmuzyka
 
 module purge
-module load tryton/netcdf/4.7.4-intel19-mpi-iopan
+module load trytonp/netcdf/4.9.2-intel24-mpi

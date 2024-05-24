@@ -1,6 +1,6 @@
 #######################################
 export METROMS_BASEDIR=/users/kdm/mmuzyka/metroms_src
-export METROMS_CASEDIR=/users/work/mmuzyka/CSDIR/metro_560x600_era5MYtest
+export METROMS_CASEDIR=/users/project1/pt00972/CSDIR/metro_560x600_era5MYtest
 #######################################
 
 export PYTHONPATH=${PYTHONPATH}:$METROMS_BASEDIR/apps/python/
@@ -17,8 +17,8 @@ export CXX=icc
 export ROMS_APPLICATION=baltic
 export MYHOST=tryton
 
-export METROMS_FORCING=/users/work/mmuzyka/CSDIR/forcing_560x600
-export CICE_grid_dir=/users/work/mmuzyka/CSDIR/input_560x600
+export METROMS_FORCING=/users/project1/pt00972/CSDIR/forcing_560x600
+export CICE_grid_dir=/users/project1/pt00972/CSDIR/input_560x600
 export mygridnx=560
 export mygridny=600
 

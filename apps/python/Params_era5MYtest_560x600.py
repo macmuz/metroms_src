@@ -35,12 +35,12 @@ class Params(object):
             self.CICEINFILE=self.RUNPATH + "/ice_in"
             self.CICEKEYWORDFILE=self.RUNPATH + "/cice/ice_in"
             self.FELT_CLMFILE=self.RUNPATH+"/FOAM.felt"
-            self.DELTAT=60
+            self.DELTAT=30
             self.CICEDELTAT=900
             self.COUPLINGTIME_I2O=900
-            self.ROMSINFOLDER="/users/work/mmuzyka/CSDIR/input_560x600"
-            self.ROMSFORCING="/users/work/mmuzyka/CSDIR/forcing_560x600"
-            self.ROMSINIFILE = self.ROMSINFOLDER+"/ROMS_grid_125NM_may_1993_initial_full.nc"
+            self.ROMSINFOLDER="/users/project1/pt00972/CSDIR/input_560x600"
+            self.ROMSFORCING="/users/project1/pt00972/CSDIR/forcing_560x600"
+            self.ROMSINIFILE = self.ROMSINFOLDER+"/ROMS_grid_125NM_may_19930102_initial_full.nc"
 #            self.ROMSINIFILE = self.RUNPATH+"/ocean_rst_1999-11-27.nc"
             if restart == True:
                 f = open(self.CICERUNDIR+'/restart/ice.restart_file', 'r')
@@ -79,18 +79,18 @@ class Params(object):
             ['YCPU',str(self.YCPU)],
             ['TSTEPS',str(self.FCLEN/self.DELTAT-cice_rst_time*self.CICEDELTAT/self.DELTAT)],
             ['DELTAT',str(self.DELTAT)],
-            ['RATIO',"30"],
+            ['RATIO',"72"],
             ['IRESTART',str(self.NRREC)],
             ['RSTSTEP',str(240*3600/int(self.DELTAT))],
             ['STASTEP',str(0*3600/int(self.DELTAT))],
             ['INFOSTEP',str(1*3600/int(self.DELTAT))],
-            ['HISSTEPP',str(1*3600/int(self.DELTAT))],
+            ['HISSTEPP',str(0*3600/int(self.DELTAT))],
             ['AVGSTEPP',str(6*3600/int(self.DELTAT))],
             ['STARTAVG',"1"],
             ['DEFAVGSTEP',str(24*3600/int(self.DELTAT))],  #if 0; all output in one avg-file
             ['STARTTIME',str((start_date-self.TIMEREF).total_seconds()/86400)],
             ['TIDEREF',str((start_date-self.TIMEREF).total_seconds()/86400)],
-            ['DEFHISSTEP',str(24*3600/int(self.DELTAT))],
+            ['DEFHISSTEP',str(0*3600/int(self.DELTAT))],
             ['TIMEREF',self.TIMEREF.strftime("%Y%m%d.00")],
             ['V_TRANS',"2"],
             ['_TNUDG_',"2.0d0 2.0d0"],
@@ -101,36 +101,36 @@ class Params(object):
             ['INIFILE',self.ROMSINIRST],
             ['RUNDIR',self.RUNPATH],
             ['RIVERFILE',\
-                self.ROMSINFOLDER+"/rivers_125NM_may_vertical_2008_Luv.nc | \n"+\
-                self.ROMSINFOLDER+"/rivers_125NM_may_vertical_2009_Luv.nc | \n"+\
-                self.ROMSINFOLDER+"/rivers_125NM_may_vertical_2010_Luv.nc"],
+                self.ROMSINFOLDER+"/rivers_125NM_may_vertical_1993_Luv.nc | \n"+\
+                self.ROMSINFOLDER+"/rivers_125NM_may_vertical_1994_Luv.nc | \n"+\
+                self.ROMSINFOLDER+"/rivers_125NM_may_vertical_1995_Luv.nc"],
             ['_BRYNAME_',\
-                self.ROMSINFOLDER+"/ROMS_grid_125NM_may_bc_bar_2008.nc | \n"+\
-                self.ROMSINFOLDER+"/ROMS_grid_125NM_may_bc_bar_2009.nc | \n"+\
-                self.ROMSINFOLDER+"/ROMS_grid_125NM_may_bc_bar_2010.nc"],
+                self.ROMSINFOLDER+"/ROMS_grid_125NM_may_bc_bar_sla_1993.nc | \n"+\
+                self.ROMSINFOLDER+"/ROMS_grid_125NM_may_bc_bar_sla_1994.nc | \n"+\
+                self.ROMSINFOLDER+"/ROMS_grid_125NM_may_bc_bar_sla_1995.nc"],
             ['TIDEDIR',self.RUNPATH],
             ['ATMDIR',\
-                self.ROMSFORCING+"/baltic_lwrad_down_2008.nc | \n"+\
-                self.ROMSFORCING+"/baltic_lwrad_down_2009.nc | \n"+\
-                self.ROMSFORCING+"/baltic_lwrad_down_2010.nc \ \n"+\
-                self.ROMSFORCING+"/baltic_Pair_2008.nc | \n"+\
-                self.ROMSFORCING+"/baltic_Pair_2009.nc | \n"+\
-                self.ROMSFORCING+"/baltic_Pair_2010.nc \ \n"+\
-                self.ROMSFORCING+"/baltic_Qair_2008.nc | \n"+\
-                self.ROMSFORCING+"/baltic_Qair_2009.nc | \n"+\
-                self.ROMSFORCING+"/baltic_Qair_2010.nc \ \n"+\
-                self.ROMSFORCING+"/baltic_rain_2008.nc | \n"+\
-                self.ROMSFORCING+"/baltic_rain_2009.nc | \n"+\
-                self.ROMSFORCING+"/baltic_rain_2010.nc \ \n"+\
-                self.ROMSFORCING+"/baltic_swrad_2008.nc | \n"+\
-                self.ROMSFORCING+"/baltic_swrad_2009.nc | \n"+\
-                self.ROMSFORCING+"/baltic_swrad_2010.nc \ \n"+\
-                self.ROMSFORCING+"/baltic_Tair_2008.nc | \n"+\
-                self.ROMSFORCING+"/baltic_Tair_2009.nc | \n"+\
-                self.ROMSFORCING+"/baltic_Tair_2010.nc \ \n"+\
-                self.ROMSFORCING+"/baltic_wind_2008.nc | \n"+\
-                self.ROMSFORCING+"/baltic_wind_2009.nc | \n"+\
-                self.ROMSFORCING+"/baltic_wind_2010.nc"],
+                self.ROMSFORCING+"/baltic_lwrad_down_1993.nc | \n"+\
+                self.ROMSFORCING+"/baltic_lwrad_down_1994.nc | \n"+\
+                self.ROMSFORCING+"/baltic_lwrad_down_1995.nc \ \n"+\
+                self.ROMSFORCING+"/baltic_Pair_1993.nc | \n"+\
+                self.ROMSFORCING+"/baltic_Pair_1994.nc | \n"+\
+                self.ROMSFORCING+"/baltic_Pair_1995.nc \ \n"+\
+                self.ROMSFORCING+"/baltic_Qair_1993.nc | \n"+\
+                self.ROMSFORCING+"/baltic_Qair_1994.nc | \n"+\
+                self.ROMSFORCING+"/baltic_Qair_1995.nc \ \n"+\
+                self.ROMSFORCING+"/baltic_rain_1993.nc | \n"+\
+                self.ROMSFORCING+"/baltic_rain_1994.nc | \n"+\
+                self.ROMSFORCING+"/baltic_rain_1995.nc \ \n"+\
+                self.ROMSFORCING+"/baltic_swrad_1993.nc | \n"+\
+                self.ROMSFORCING+"/baltic_swrad_1994.nc | \n"+\
+                self.ROMSFORCING+"/baltic_swrad_1995.nc \ \n"+\
+                self.ROMSFORCING+"/baltic_Tair_1993.nc | \n"+\
+                self.ROMSFORCING+"/baltic_Tair_1994.nc | \n"+\
+                self.ROMSFORCING+"/baltic_Tair_1995.nc \ \n"+\
+                self.ROMSFORCING+"/baltic_wind_1993.nc | \n"+\
+                self.ROMSFORCING+"/baltic_wind_1994.nc | \n"+\
+                self.ROMSFORCING+"/baltic_wind_1995.nc"],
             ['FORCEFILES',"7"], # The files should be specified here as well
             ['COUPLINGTIMEI2O',str(self.COUPLINGTIME_I2O)],
             ['ROMSINFILE', self.ROMSINFILE ],
@@ -160,6 +160,7 @@ class Params(object):
             ['CICEGRD',"CICE_grid_125NM_may.nc"],
             ['CICEKMT',"CICE_KMT_125NM_may.nc"],
             ['CICEBAT',"CICE_bathy_125NM_may.nc"],
+            ['CICEINTERP',"/users/project1/pt00972/CSDIR/input_october/out_1_25NM.nc"],
             ]
             ########################################################################
             ########################################################################

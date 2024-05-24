@@ -1749,7 +1749,8 @@
         real(r8), parameter :: my_Gh0 = 0.0233_r8
         real(r8), parameter :: my_Sq = 0.2_r8
         real(r8), parameter :: my_dtfac = 0.05_r8
-        real(r8), parameter :: my_lmax = 0.53_r8
+!        real(r8), parameter :: my_lmax = 0.53_r8
+        real(r8), parameter :: my_lmax = 0.26_r8 !MACIEJ
         real(r8), parameter :: my_qmin = 1.0E-8_r8
 
         real(r8) :: my_B1p2o3

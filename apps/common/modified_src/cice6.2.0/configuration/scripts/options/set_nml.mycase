@@ -42,6 +42,7 @@ fyear_init      = CICEFYEAR
 ycycle          = 100
 atm_data_format = 'nc'
 atm_data_dir    = '<ciceatm>'
+interp_file     = 'CICEINTERP'
 ew_boundary_type  = 'open'
 maskhalo_dyn      = .true.
 maskhalo_remap    = .true.

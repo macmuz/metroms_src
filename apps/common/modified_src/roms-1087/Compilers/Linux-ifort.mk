@@ -29,7 +29,7 @@
 #
 # First the defaults
 #
-               FC := mpif90
+               FC := mpiifort
            FFLAGS := -fp-model precise
            FFLAGS += -heap-arrays
        FIXEDFLAGS := -nofree
@@ -213,10 +213,10 @@ endif
 ifdef USE_MPI
          CPPFLAGS += -DMPI
  ifdef USE_MPIF90
-  ifeq ($(which_MPI), intel)
+  ifeq ($(which_MPI), openmpi)
                FC := mpiifort
   else
-               FC := mpif90
+               FC := mpiifort
   endif
  else
              LIBS += -lfmpi -lmpi
