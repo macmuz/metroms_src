@@ -132,10 +132,10 @@ GridsInLayer =  1
 ! grids, specify values for each grid (see glossary below).
 
    Hadvection == SU3       \                     ! temperature
-                 SU3                             ! salinity
+                 MPDATA                             ! salinity
 
    Vadvection == SU3       \                     ! temperature
-                 SU3                             ! salinity
+                 MPDATA                             ! salinity
 
 ! Adjoint-based algorithms can have different horizontal and schemes
 ! for active and inert tracers.
@@ -464,7 +464,7 @@ LtracerSponge == F F                            ! temperature, salinity, inert
 ! (like river runoff) and to specify which tracer variables to consider:
 ! [1:NAT+NPT,Ngrids].  See glossary below for details.
 
-  LtracerSrc == F T                        ! temperature, salinity, inert
+  LtracerSrc == F F                        ! temperature, salinity, inert
 
 ! Logical switches (TRUE/FALSE) to read and process climatology fields.
 ! See glossary below for details.
@@ -800,10 +800,10 @@ Aout(idSrad) == F       ! swrad              shortwave radiation flux
 Aout(idevap) == F       ! evaporation        evaporation rate
 Aout(idrain) == F       ! rain               precipitation rate
 
-Aout(idDano) == T       ! rho                density anomaly
-Aout(idVvis) == T       ! AKv                vertical viscosity
-Aout(idTdif) == T       ! AKt                vertical T-diffusion
-Aout(idSdif) == T       ! AKs                vertical Salinity diffusion
+Aout(idDano) == F       ! rho                density anomaly
+Aout(idVvis) == F       ! AKv                vertical viscosity
+Aout(idTdif) == F       ! AKt                vertical T-diffusion
+Aout(idSdif) == F       ! AKs                vertical Salinity diffusion
 Aout(idHsbl) == F       ! Hsbl               depth of surface boundary layer
 Aout(idHbbl) == F       ! Hbbl               depth of bottom boundary layer
 

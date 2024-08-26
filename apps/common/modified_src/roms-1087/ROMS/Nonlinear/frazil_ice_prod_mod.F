@@ -150,7 +150,7 @@
 
       real(r8), parameter :: Lh_ice = 334000.0_r8
 
-      real(r8), parameter :: z_r_max= -5.0_r8
+      real(r8), parameter :: z_r_max= -25.0_r8
 
 !jd      real(r8), parameter :: Lhat = 79.2_r8
 !jd      real(r8), parameter :: r = 0.5_r8

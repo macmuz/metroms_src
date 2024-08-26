@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#SBATCH -J keps
+#SBATCH -J kepsilon
 #SBATCH --partition batch
 #SBATCH -N 8
 #SBATCH --time=72:00:00

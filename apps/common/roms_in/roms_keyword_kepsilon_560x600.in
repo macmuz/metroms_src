@@ -132,10 +132,10 @@ GridsInLayer =  1
 ! grids, specify values for each grid (see glossary below).
 
    Hadvection == SU3       \                     ! temperature
-                 SU3                             ! salinity
+                 SU3                          ! salinity
 
    Vadvection == SU3       \                     ! temperature
-                 SU3                             ! salinity
+                 SU3                          ! salinity
 
 ! Adjoint-based algorithms can have different horizontal and schemes
 ! for active and inert tracers.
@@ -352,7 +352,7 @@ LtracerSponge == F F                            ! temperature, salinity, inert
        GLS_P == 3.0d0                           ! k-kl
        GLS_M == 1.5d0
        GLS_N == -1.0d0
-    GLS_Kmin == 1.0d-10
+    GLS_Kmin == 1.0d-12
     GLS_Pmin == 1.0d-12
 
     GLS_CMU0 == 0.5477d0
@@ -365,17 +365,17 @@ LtracerSponge == F F                            ! temperature, salinity, inert
 
 ! Constants used in surface turbulent kinetic energy flux computation.
 
-  CHARNOK_ALPHA == 1400.0d0         ! Charnok surface roughness
+  CHARNOK_ALPHA == 700.0d0         ! Charnok surface roughness
  ZOS_HSIG_ALPHA == 0.5d0            ! roughness from wave amplitude
        SZ_ALPHA == 0.25d0           ! roughness from wave dissipation
-      CRGBAN_CW == 100.0d0          ! Craig and Banner wave breaking
+      CRGBAN_CW == 50.0d0          ! Craig and Banner wave breaking
 
 ! Constants used in momentum stress computation.
 
         RDRG == 0.0d0                    ! m/s
        RDRG2 == 0.0d0                    ! nondimensional
-         Zob == 0.005d0                     ! m
-         Zos == 0.02d0                     ! m
+         Zob == 0.0005d0                     ! m
+         Zos == 0.0001d0                     ! m
 
 ! Height (m) of atmospheric measurements for Bulk fluxes parameterization.
 
@@ -464,7 +464,7 @@ LtracerSponge == F F                            ! temperature, salinity, inert
 ! (like river runoff) and to specify which tracer variables to consider:
 ! [1:NAT+NPT,Ngrids].  See glossary below for details.
 
-  LtracerSrc == F T                        ! temperature, salinity, inert
+  LtracerSrc == F F                        ! temperature, salinity, inert
 
 ! Logical switches (TRUE/FALSE) to read and process climatology fields.
 ! See glossary below for details.
@@ -800,10 +800,10 @@ Aout(idSrad) == F       ! swrad              shortwave radiation flux
 Aout(idevap) == F       ! evaporation        evaporation rate
 Aout(idrain) == F       ! rain               precipitation rate
 
-Aout(idDano) == T       ! rho                density anomaly
-Aout(idVvis) == T       ! AKv                vertical viscosity
-Aout(idTdif) == T       ! AKt                vertical T-diffusion
-Aout(idSdif) == T       ! AKs                vertical Salinity diffusion
+Aout(idDano) == F       ! rho                density anomaly
+Aout(idVvis) == F       ! AKv                vertical viscosity
+Aout(idTdif) == F       ! AKt                vertical T-diffusion
+Aout(idSdif) == F       ! AKs                vertical Salinity diffusion
 Aout(idHsbl) == F       ! Hsbl               depth of surface boundary layer
 Aout(idHbbl) == F       ! Hbbl               depth of bottom boundary layer
 

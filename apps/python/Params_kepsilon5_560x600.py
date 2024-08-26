@@ -72,9 +72,9 @@ class Params(object):
             ['GRDTHETAB',"1.0d0"],
             ['GRDTCLINE',"20.0d0"],            
             ['_TNU2_',"0.0d2  0.0d2"],
-            ['_TNU4_',"1.0d7  1.0d7"],
+            ['_TNU4_',"3.0d7  3.0d7"],
             ['_VISC2_',"0.0d0"],
-            ['_VISC4_',"1.0d8"],
+            ['_VISC4_',"1.0d9"],
             ['XCPU',str(self.XCPU)],
             ['YCPU',str(self.YCPU)],
             ['TSTEPS',str(self.FCLEN/self.DELTAT-cice_rst_time*self.CICEDELTAT/self.DELTAT)],
@@ -85,7 +85,7 @@ class Params(object):
             ['STASTEP',str(0*3600/int(self.DELTAT))],
             ['INFOSTEP',str(1*3600/int(self.DELTAT))],
             ['HISSTEPP',str(0*3600/int(self.DELTAT))],
-            ['AVGSTEPP',str(6*3600/int(self.DELTAT))],
+            ['AVGSTEPP',str(24*3600/int(self.DELTAT))],
             ['STARTAVG',"1"],
             ['DEFAVGSTEP',str(24*3600/int(self.DELTAT))],  #if 0; all output in one avg-file
             ['STARTTIME',str((start_date-self.TIMEREF).total_seconds()/86400)],
@@ -101,18 +101,27 @@ class Params(object):
             ['INIFILE',self.ROMSINIRST],
             ['RUNDIR',self.RUNPATH],
             ['RIVERFILE',\
-                self.ROMSINFOLDER+"/rivers_125NM_dec_vertical_1993_Luv.nc"],
+                self.ROMSINFOLDER+"/rivers_125NM_dec_vertical_2015_Luv.nc | \n"+\
+                self.ROMSINFOLDER+"/rivers_125NM_dec_vertical_2016_Luv.nc"],
             ['_BRYNAME_',\
-                self.ROMSINFOLDER+"/ROMS_grid_125NM_dec_bc_bar_spline_1993.nc"],
+                self.ROMSINFOLDER+"/ROMS_grid_125NM_dec_bc_bar_spline_2015.nc | \n"+\
+                self.ROMSINFOLDER+"/ROMS_grid_125NM_dec_bc_bar_spline_2016.nc"],
             ['TIDEDIR',self.RUNPATH],
             ['ATMDIR',\
-                self.ROMSFORCING+"/baltic_lwrad_down_1993.nc \ \n"+\
-                self.ROMSFORCING+"/baltic_Pair_1993.nc \ \n"+\
-                self.ROMSFORCING+"/baltic_Qair_1993.nc \ \n"+\
-                self.ROMSFORCING+"/baltic_rain_1993.nc \ \n"+\
-                self.ROMSFORCING+"/baltic_swrad_1993.nc \ \n"+\
-                self.ROMSFORCING+"/baltic_Tair_1993.nc \ \n"+\
-                self.ROMSFORCING+"/baltic_wind_1993.nc"],
+                self.ROMSFORCING+"/baltic_lwrad_down_2015.nc | \n"+\
+                self.ROMSFORCING+"/baltic_lwrad_down_2016.nc \ \n"+\
+                self.ROMSFORCING+"/baltic_Pair_2015.nc | \n"+\
+                self.ROMSFORCING+"/baltic_Pair_2016.nc \ \n"+\
+                self.ROMSFORCING+"/baltic_Qair_2015.nc | \n"+\
+                self.ROMSFORCING+"/baltic_Qair_2016.nc \ \n"+\
+                self.ROMSFORCING+"/baltic_rain_2015.nc | \n"+\
+                self.ROMSFORCING+"/baltic_rain_2016.nc \ \n"+\
+                self.ROMSFORCING+"/baltic_swrad_2015.nc | \n"+\
+                self.ROMSFORCING+"/baltic_swrad_2016.nc \ \n"+\
+                self.ROMSFORCING+"/baltic_Tair_2015.nc | \n"+\
+                self.ROMSFORCING+"/baltic_Tair_2016.nc \ \n"+\
+                self.ROMSFORCING+"/baltic_wind_2015.nc | \n"+\
+                self.ROMSFORCING+"/baltic_wind_2016.nc"],
             ['FORCEFILES',"7"], # The files should be specified here as well
             ['COUPLINGTIMEI2O',str(self.COUPLINGTIME_I2O)],
             ['ROMSINFILE', self.ROMSINFILE ],

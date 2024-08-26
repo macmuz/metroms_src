@@ -35,8 +35,10 @@
 #define ATM_PRESS
 #define MASKING
 #define CURVGRID
-/*#define VISC_GRID
+/*#define SILENT
+#define VISC_GRID
 #define DIFF_GRID*/
+#define CPMAXSPEED
 
 
 
@@ -107,7 +109,7 @@
 # undef  CLOUDS
 # define SOLAR_SOURCE
 # define SPECIFIC_HUMIDITY /*MACIEJ*/
-/*# define POP_WIND MACIEJ*/
+# define POP_WIND /*MACIEJ*/
 # undef  DIURNAL_SRFLUX
 # if ! defined SRELAXATION
 # define EMINUSP

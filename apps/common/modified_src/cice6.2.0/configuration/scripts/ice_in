@@ -37,7 +37,7 @@
     latpnt(2)      = -65.
     lonpnt(2)      = -45.
     dbug           = .false.
-    histfreq       = 'd','h','x','x','x'
+    histfreq       = 'd','x','x','x','x'
     histfreq_n     =  1 , 1 , 1 , 1 , 1
     hist_avg       = .true.
     history_dir    = './history/'
@@ -436,11 +436,11 @@
     f_snow_ai      = 'd' 
     f_rain         = 'x' 
     f_rain_ai      = 'd' 
-    f_sst          = 'h' 
-    f_sss          = 'h' 
-    f_uocn         = 'h' 
-    f_vocn         = 'h' 
-    f_frzmlt       = 'h'
+    f_sst          = 'd' 
+    f_sss          = 'd' 
+    f_uocn         = 'd' 
+    f_vocn         = 'd' 
+    f_frzmlt       = 'd'
     f_fswfac       = 'd'
     f_fswint_ai    = 'd'
     f_fswabs       = 'x' 

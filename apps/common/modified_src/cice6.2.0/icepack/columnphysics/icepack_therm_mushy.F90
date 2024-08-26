@@ -1237,7 +1237,7 @@ contains
          nit               ! Picard iteration count
 
     integer, parameter :: &
-         nit_max = 100     ! maximum number of Picard iterations
+         nit_max = 200     ! maximum number of Picard iterations
 
     character(len=*),parameter :: subname='(picard_solver)'
 

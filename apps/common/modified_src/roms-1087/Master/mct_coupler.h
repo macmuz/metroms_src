@@ -189,7 +189,7 @@
      &                    OCNid)
 #ifdef REPORT_COUPLING_ALL
       WRITE(stdout,*) ' Done: ROMS Ocean Coupler: calling MCTWorld_init'
-#else
+#elif !defined SILENT
       IF (Master)                                                       &
      &     WRITE(stdout,*)' ROMS Ocean Coupler: MCTWorld_init called'
 #endif
@@ -247,7 +247,7 @@
       END DO
 #ifdef REPORT_COUPLING_ALL
       WRITE (stdout,*) ' ROMS Ocean Coupler: calling GlobalSegMap_init'
-#else
+#elif !defined SILENT
       if (Master) WRITE (stdout,*)                                      &
      & ' ROMS Ocean Coupler: calling GlobalSegMap_init'
 #endif
@@ -265,8 +265,10 @@
      &     ' Asize=', Asize
 #endif
 
+#if !defined SILENT
       if (master) write(stdout,*)                                       &
      &     'cice2ocn_AV, Exportlist ',trim(ExportList(Icice))
+#endif
 
       CALL AttrVect_init (cice2ocn_AV, rList=TRIM(ExportList(Icice)),   &
      &     lsize=Asize)
@@ -274,8 +276,10 @@
 !  Initialize attribute vector holding the export data code string of
 !  the ocean model.
 !
+#if !defined SILENT
       if (master) write(stdout,*)                                       &
      &     'ocn2cice_AV, Exportlist ',trim(ExportList(Iocean))
+#endif
       CALL AttrVect_init (ocn2cice_AV, rList=TRIM(ExportList(Iocean)),  &
      &     lsize=Asize)
       CALL AttrVect_zero (ocn2cice_AV)
@@ -287,7 +291,7 @@
 
 #ifdef REPORT_COUPLING_ALL
       WRITE (stdout,*) ' ROMS Ocean Coupler: calling Router_init. Done'
-#else
+#elif !defined SILENT
       if (master) write(stdout,*)                                       &
      &     ' ROMS Ocean Coupler: calling Router_init. Done'
 #endif
@@ -360,7 +364,7 @@
 
 
       integer :: nbotu, nbotv, k
-      integer, dimension(:,:), allocatable :: nbot
+      integer, dimension(:,:), allocatable :: nbot,nbotvel
       real(r8), dimension(:,:), allocatable :: uw
       real(r8), dimension(:,:), allocatable :: vw
       real(r8), dimension(:,:), allocatable :: uwater
@@ -371,10 +375,13 @@
       real(r8), dimension(:,:), allocatable :: ml2d
       real(r8), dimension(:,:,:), allocatable :: rho3d
 
-      real(r8) :: mlio
+      real(r8) :: mlio,mliovel
       real(r8) :: dml
       real(r8) :: totml
       real(r8) :: rho,sst,sss
+#ifdef CPMAXSPEED
+      real(r8) :: maxcurvel
+#endif
 
       character (len=*), parameter :: MyFile =                          &
      &  __FILE__
@@ -387,6 +394,7 @@
 
 
       allocate(nbot(IminS:ImaxS,JminS:JmaxS))
+      allocate(nbotvel(IminS:ImaxS,JminS:JmaxS))
       allocate(uw(IminS:ImaxS,JminS:JmaxS))
       allocate(vw(IminS:ImaxS,JminS:JmaxS))
       allocate(uwater(LBi:UBi,LBj:UBj))
@@ -405,7 +413,7 @@
       sss2d=0.0_r8
       rho3d=1000.0_r8+OCEAN(ng)%pden
 
-
+#if !defined SILENT
       IF (Master) THEN
           write(stdout,*) ' '
           write(stdout,*) ' ***************************************** '
@@ -414,6 +422,7 @@
           write(stdout,*) &
           '    Time : ', time_code, time
       END IF
+#endif
 
 !
 !-----------------------------------------------------------------------
@@ -710,9 +719,11 @@
 #endif
 
         END SELECT
+#if !defined SILENT
         IF (Master) write(stdout,*)                                     &
      &       'i2o: ',trim(code),' min/max', Fields(id)%ImpMin,        &
      &          Fields(id)%ImpMax
+#endif
 
       END DO
 
@@ -721,6 +732,10 @@
 !  Export fields from ocean (ROMS) to sea ice (CICE) model.
 !-----------------------------------------------------------------------
 !
+
+#ifdef CPMAXSPEED
+   maxcurvel = 1.0
+#endif
 
 !  Prepare for depth-averaging (find k index just below mixed layer)
 
@@ -731,8 +746,10 @@
 
 #  ifdef LMD_SKPP
             mlio = min(MIXING(ng)%hsbl(i,j),-10._r8)
+            mliovel = min(MIXING(ng)%hsbl(i,j),-10._r8)
 #  else
             mlio = -5._r8
+            mliovel = -5._r8
 #  endif
             nbot(i,j) = 1
             do k=N(ng),1,-1
@@ -743,6 +760,16 @@
                endif
             enddo
  1111       continue
+
+            nbotvel(i,j) = 1
+            do k=N(ng),1,-1
+               if(GRID(ng)%z_r(i,j,k).lt.mliovel) then
+                  nbotvel(i,j) = min(k,N(ng))
+                  nbotvel(i,j) = max(nbotvel(i,j),1)
+                  goto 1112
+               endif
+            enddo
+ 1112       continue
          enddo
       enddo
 #undef I_RANGE
@@ -863,7 +890,7 @@
 #  define I_RANGE MAX(Istr-1,1),Iend+1
            do j=Jstr,Jend
               do i=I_RANGE
-                 nbotu = NINT(0.5_r8*(nbot(i-1,j)+nbot(i,j)))
+                 nbotu = NINT(0.5_r8*(nbotvel(i-1,j)+nbotvel(i,j)))
                  nbotu = max(min(nbotu,N(ng)),1)
                  uw(i,j) = 0._r8
                  totml = 0._r8
@@ -875,6 +902,9 @@
                     totml = totml + dml
                  enddo
                  uw(i,j) = uw(i,j)/totml
+#ifdef CPMAXSPEED
+                 uw(i,j) = min(maxcurvel,abs(uw(i,j)))*SIGN(1.0,uw(i,j))
+#endif
               enddo
            enddo
 #  undef I_RANGE
@@ -915,7 +945,7 @@
 #  define J_RANGE MAX(Jstr-1,1),Jend+1
            do j=J_RANGE
               do i=Istr,Iend
-                 nbotv = NINT(0.5_r8*(nbot(i,j-1)+nbot(i,j)))
+                 nbotv = NINT(0.5_r8*(nbotvel(i,j-1)+nbotvel(i,j)))
                  nbotv = max(min(nbotv,N(ng)),1)
                  vw(i,j) = 0._r8
                  totml = 0._r8
@@ -925,6 +955,9 @@
                     totml = totml + dml
                  enddo
                  vw(i,j) = vw(i,j)/totml
+#ifdef CPMAXSPEED
+                 vw(i,j) = min(maxcurvel,abs(vw(i,j)))*SIGN(1.0,vw(i,j))
+#endif
               enddo
            enddo
 #  undef J_RANGE
@@ -978,10 +1011,11 @@
 
 
         END SELECT
-
+#if !defined SILENT
         IF (Master) write(stdout,*)                                     &
      &       'o2i: ',trim(code),' min/max', Fields(id)%ExpMin,        &
      &          Fields(id)%ExpMax
+#endif
 
 
       END DO
@@ -1001,7 +1035,7 @@
 !
 !  Deallocate communication arrays.
 !
-      deallocate (A,nbot,uw,vw,uwater,vwater)
+      deallocate (A,nbot,nbotvel,uw,vw,uwater,vwater)
       deallocate (sst2d,sss2d,rho2d,ml2d,rho3d)
 
 #ifdef PROFILE

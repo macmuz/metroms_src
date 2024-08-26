@@ -1,1 +1,1 @@
-baltic_kepsilon3_560x600.h
+baltic_keps5clima2_560x600.h

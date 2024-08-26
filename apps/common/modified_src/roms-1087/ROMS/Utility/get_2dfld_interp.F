@@ -107,7 +107,9 @@
      &                        Fout)
 #endif
         CASE DEFAULT
+#if !defined SILENT
           IF (Master) WRITE (stdout,10) S(1)%IOtype
+#endif
           exit_flag=3
       END SELECT
       IF (FoundError(exit_flag, NoError, __LINE__, MyFile)) RETURN
@@ -286,7 +288,9 @@
      &                            start = (/Trec/),                     &
      &                            total = (/1/))
             IF (FoundError(exit_flag, NoError, __LINE__, MyFile)) THEN
+#if !defined SILENT
               IF (Master) WRITE (stdout,40) TRIM(Tname(ifield)), Trec
+#endif
               RETURN
             END IF
           END IF
@@ -354,14 +358,18 @@
               Fmax=Fval
             END IF
             IF (FoundError(exit_flag, NoError, __LINE__, MyFile)) THEN
+#if !defined SILENT
               IF (Master) WRITE (stdout,40) TRIM(Vname(1,ifield)), Trec
+#endif
               RETURN
             END IF
             Finfo(8,ifield,ng)=Fmin
             Finfo(9,ifield,ng)=Fmax
             IF (Master) THEN
               IF (special) THEN
+#if !defined SILENT
                 WRITE (stdout,50) TRIM(Vname(2,ifield)), ng, Fmin, Fmax
+#endif
               ELSE
                 lstr=SCAN(ncfile,'/',BACK=.TRUE.)+1
                 lend=LEN_TRIM(ncfile)
@@ -373,11 +381,15 @@
                 ELSE
                   Rswitch='F'
                 END IF
+#if !defined SILENT
                 WRITE (stdout,60) Vname(2,ifield)(1:lvar), t_code,      &
      &                            ng, Trec, Tindex, ncfile(lstr:lend),  &
      &                            Tmin, Tmax, Tval, Fmin, Fmax, Rswitch
-#ifdef CHECKSUM
+#endif
+#ifdef CHECKSUM 
+#if !defined SILENT
                 WRITE (stdout,70) Fhash
+#endif
 #endif
               END IF
             END IF
@@ -600,7 +612,9 @@
      &                                start = (/Trec/),                 &
      &                                total = (/1/))
             IF (FoundError(exit_flag, NoError, __LINE__, MyFile)) THEN
+#if !defined SILENT
               IF (Master) WRITE (stdout,40) TRIM(Tname(ifield)), Trec
+#endif
               RETURN
             END IF
           END IF
@@ -699,14 +713,18 @@
               Fmax=Fval
             END IF
             IF (FoundError(exit_flag, NoError, __LINE__, MyFile)) THEN
+#if !defined SILENT
               IF (Master) WRITE (stdout,40) TRIM(Vname(1,ifield)), Trec
+#endif
               RETURN
             END IF
             Finfo(8,ifield,ng)=Fmin
             Finfo(9,ifield,ng)=Fmax
             IF (Master) THEN
               IF (special) THEN
+#if !defined SILENT
                 WRITE (stdout,50) TRIM(Vname(2,ifield)), ng, Fmin, Fmax
+#endif
               ELSE
                 lstr=SCAN(ncfile,'/',BACK=.TRUE.)+1
                 lend=LEN_TRIM(ncfile)
@@ -718,11 +736,15 @@
                 ELSE
                   Rswitch='F'
                 END IF
+#if !defined SILENT
                 WRITE (stdout,60) Vname(2,ifield)(1:lvar), t_code,      &
      &                            ng, Trec, Tindex, ncfile(lstr:lend),  &
      &                            Tmin, Tmax, Tval, Fmin, Fmax, Rswitch
+#endif
 # ifdef CHECKSUM
+#if !defined SILENT
                 WRITE (stdout,70) Fhash
+#endif
 # endif
               END IF
             END IF
