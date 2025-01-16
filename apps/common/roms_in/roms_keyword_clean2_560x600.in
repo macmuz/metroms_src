@@ -131,10 +131,10 @@ GridsInLayer =  1
 ! two letters, regardless if using uppercase or lowercase. If nested
 ! grids, specify values for each grid (see glossary below).
 
-   Hadvection == U3        \                     ! temperature
+   Hadvection == SU3        \                     ! temperature
                  MPDATA                              ! salinity
 
-   Vadvection == C4        \                     ! temperature
+   Vadvection == SU3        \                     ! temperature
                  MPDATA                              ! salinity
 
 ! Adjoint-based algorithms can have different horizontal and schemes
@@ -352,8 +352,8 @@ LtracerSponge == F F                            ! temperature, salinity, inert
        GLS_P == 3.0d0                           ! k-kl
        GLS_M == 1.5d0
        GLS_N == -1.0d0
-    GLS_Kmin == 1.0d-12
-    GLS_Pmin == 1.0d-12
+    GLS_Kmin == 1.0d-15
+    GLS_Pmin == 1.0d-15
 
     GLS_CMU0 == 0.5477d0
       GLS_C1 == 1.44d0

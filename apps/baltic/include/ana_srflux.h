@@ -118,7 +118,7 @@
 #endif
       real(r8) :: cff
 !
-      real(r8), parameter :: alb_w=0.07_r8
+      real(r8), parameter :: alb_w=0.1_r8
 
 #include "set_bounds.h"
 

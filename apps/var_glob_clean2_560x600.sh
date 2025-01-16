@@ -1,6 +1,6 @@
 #######################################
 export METROMS_BASEDIR=/users/kdm/mmuzyka/metroms_src
-export METROMS_CASEDIR=/users/project1/pt01135/CSDIR/metro_560x600_clean
+export METROMS_CASEDIR=/users/project1/pt01135/CSDIR/metro_560x600_clean2
 #######################################
 
 export PYTHONPATH=${PYTHONPATH}:$METROMS_BASEDIR/apps/python/

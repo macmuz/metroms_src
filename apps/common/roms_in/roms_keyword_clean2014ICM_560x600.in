@@ -131,10 +131,10 @@ GridsInLayer =  1
 ! two letters, regardless if using uppercase or lowercase. If nested
 ! grids, specify values for each grid (see glossary below).
 
-   Hadvection == U3        \                     ! temperature
+   Hadvection == SU3        \                     ! temperature
                  MPDATA                              ! salinity
 
-   Vadvection == C4        \                     ! temperature
+   Vadvection == SU3        \                     ! temperature
                  MPDATA                              ! salinity
 
 ! Adjoint-based algorithms can have different horizontal and schemes

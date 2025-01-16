@@ -1,6 +1,6 @@
 #######################################
 export METROMS_BASEDIR=/users/kdm/mmuzyka/metroms_src
-export METROMS_CASEDIR=/users/project1/pt01135/CSDIR/metro_560x600_clean
+export METROMS_CASEDIR=/users/project1/pt01135/CSDIR/metro_560x600_clean2014ICM
 #######################################
 
 export PYTHONPATH=${PYTHONPATH}:$METROMS_BASEDIR/apps/python/
@@ -18,7 +18,7 @@ export MPIFC=mpiifort
 export ROMS_APPLICATION=baltic
 export MYHOST=tryton
 
-export METROMS_FORCING=/users/project1/pt01135/CSDIR/forcing_560x600_CERRA
+export METROMS_FORCING=/users/project1/pt01135/CSDIR/forcing_560x600_ICM
 export CICE_grid_dir=/users/project1/pt01135/CSDIR/input_dec
 export mygridnx=560
 export mygridny=600

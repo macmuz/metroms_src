@@ -38,8 +38,8 @@ class Params(object):
             self.DELTAT=30
             self.CICEDELTAT=900
             self.COUPLINGTIME_I2O=900
-            self.ROMSINFOLDER="/users/project1/pt00625/CSDIR/input_dec"
-            self.ROMSFORCING="/users/project1/pt00625/CSDIR/forcing_560x600_CERRA"
+            self.ROMSINFOLDER="/users/project1/pt01135/CSDIR/input_dec"
+            self.ROMSFORCING="/users/project1/pt01135/CSDIR/forcing_560x600_CERRA"
             self.ROMSINIFILE = self.ROMSINFOLDER+"/ROMS_grid_125NM_dec_mask2_19930223_initial_fullnew.nc"
 #            self.ROMSINIFILE = self.RUNPATH+"/ocean_rst_1999-11-27.nc"
             if restart == True:
@@ -83,7 +83,7 @@ class Params(object):
             ['IRESTART',str(self.NRREC)],
             ['RSTSTEP',str(240*3600/int(self.DELTAT))],
             ['STASTEP',str(0*3600/int(self.DELTAT))],
-            ['INFOSTEP',str(1*3600/int(self.DELTAT))],
+            ['INFOSTEP',str(1*600/int(self.DELTAT))],
             ['HISSTEPP',str(0*3600/int(self.DELTAT))],
             ['AVGSTEPP',str(24*3600/int(self.DELTAT))],
             ['STARTAVG',"1"],
@@ -101,42 +101,62 @@ class Params(object):
             ['INIFILE',self.ROMSINIRST],
             ['RUNDIR',self.RUNPATH],
             ['RIVERFILE',\
-                self.ROMSINFOLDER+"/rivers_125NM_dec_vertical_1994_Luv.nc | \n"+\
-                self.ROMSINFOLDER+"/rivers_125NM_dec_vertical_1995_Luv.nc | \n"+\
-                self.ROMSINFOLDER+"/rivers_125NM_dec_vertical_1996_Luv.nc"],
+                self.ROMSINFOLDER+"/rivers_125NM_dec_vertical_2020_Luv.nc | \n"+\
+                self.ROMSINFOLDER+"/rivers_125NM_dec_vertical_2021_Luv.nc | \n"+\
+                self.ROMSINFOLDER+"/rivers_125NM_dec_vertical_2022_Luv.nc | \n"+\
+                self.ROMSINFOLDER+"/rivers_125NM_dec_vertical_2023_Luv.nc | \n"+\
+                self.ROMSINFOLDER+"/rivers_125NM_dec_vertical_2024_Luv.nc"],
             ['_BRYNAME_',\
-                self.ROMSINFOLDER+"/ROMS_grid_125NM_dec_bc_bar_spline_1994.nc | \n"+\
-                self.ROMSINFOLDER+"/ROMS_grid_125NM_dec_bc_bar_spline_1995.nc | \n"+\
-                self.ROMSINFOLDER+"/ROMS_grid_125NM_dec_bc_bar_spline_1996.nc"],
+                self.ROMSINFOLDER+"/ROMS_grid_125NM_dec_bc_bar_spline_2020.nc | \n"+\
+                self.ROMSINFOLDER+"/ROMS_grid_125NM_dec_bc_bar_spline_2021.nc | \n"+\
+                self.ROMSINFOLDER+"/ROMS_grid_125NM_dec_bc_bar_spline_2022.nc | \n"+\
+                self.ROMSINFOLDER+"/ROMS_grid_125NM_dec_bc_bar_spline_2023.nc | \n"+\
+                self.ROMSINFOLDER+"/ROMS_grid_125NM_dec_bc_bar_spline_2024.nc"],
             ['_CLMNAME_',\
-                self.ROMSINFOLDER+"/ROMS_clima_1994.nc | \n"+\
-                self.ROMSINFOLDER+"/ROMS_clima_1995.nc | \n"+\
-                self.ROMSINFOLDER+"/ROMS_clima_1996.nc"],
+                self.ROMSINFOLDER+"/ROMS_clima_2020.nc | \n"+\
+                self.ROMSINFOLDER+"/ROMS_clima_2021.nc | \n"+\
+                self.ROMSINFOLDER+"/ROMS_clima_2022.nc | \n"+\
+                self.ROMSINFOLDER+"/ROMS_clima_2023.nc | \n"+\
+                self.ROMSINFOLDER+"/ROMS_clima_2024.nc"],
             ['_NUDNAME_',\
                 self.ROMSINFOLDER+"/ROMS_nud60.nc"],
             ['TIDEDIR',self.RUNPATH],
             ['ATMDIR',\
-                self.ROMSFORCING+"/baltic_lwrad_down_1994.nc | \n"+\
-                self.ROMSFORCING+"/baltic_lwrad_down_1995.nc | \n"+\
-                self.ROMSFORCING+"/baltic_lwrad_down_1996.nc \ \n"+\
-                self.ROMSFORCING+"/baltic_Pair_1994.nc | \n"+\
-                self.ROMSFORCING+"/baltic_Pair_1995.nc | \n"+\
-                self.ROMSFORCING+"/baltic_Pair_1996.nc \ \n"+\
-                self.ROMSFORCING+"/baltic_Qair_1994.nc | \n"+\
-                self.ROMSFORCING+"/baltic_Qair_1995.nc | \n"+\
-                self.ROMSFORCING+"/baltic_Qair_1996.nc \ \n"+\
-                self.ROMSFORCING+"/baltic_rain_1994.nc | \n"+\
-                self.ROMSFORCING+"/baltic_rain_1995.nc | \n"+\
-                self.ROMSFORCING+"/baltic_rain_1996.nc \ \n"+\
-                self.ROMSFORCING+"/baltic_Tair_1994.nc | \n"+\
-                self.ROMSFORCING+"/baltic_Tair_1995.nc | \n"+\
-                self.ROMSFORCING+"/baltic_Tair_1996.nc \ \n"+\
-                self.ROMSFORCING+"/baltic_cloud_1994.nc | \n"+\
-                self.ROMSFORCING+"/baltic_cloud_1995.nc | \n"+\
-                self.ROMSFORCING+"/baltic_cloud_1996.nc \ \n"+\
-                self.ROMSFORCING+"/baltic_wind_1994.nc | \n"+\
-                self.ROMSFORCING+"/baltic_wind_1995.nc | \n"+\
-                self.ROMSFORCING+"/baltic_wind_1996.nc"],
+                self.ROMSFORCING+"/baltic_lwrad_down_2020.nc | \n"+\
+                self.ROMSFORCING+"/baltic_lwrad_down_2021.nc | \n"+\
+                self.ROMSFORCING+"/baltic_lwrad_down_2022.nc | \n"+\
+                self.ROMSFORCING+"/baltic_lwrad_down_2023.nc | \n"+\
+                self.ROMSFORCING+"/baltic_lwrad_down_2024.nc \ \n"+\
+                self.ROMSFORCING+"/baltic_Pair_2020.nc | \n"+\
+                self.ROMSFORCING+"/baltic_Pair_2021.nc | \n"+\
+                self.ROMSFORCING+"/baltic_Pair_2022.nc | \n"+\
+                self.ROMSFORCING+"/baltic_Pair_2023.nc | \n"+\
+                self.ROMSFORCING+"/baltic_Pair_2024.nc \ \n"+\
+                self.ROMSFORCING+"/baltic_Qair_2020.nc | \n"+\
+                self.ROMSFORCING+"/baltic_Qair_2021.nc | \n"+\
+                self.ROMSFORCING+"/baltic_Qair_2022.nc | \n"+\
+                self.ROMSFORCING+"/baltic_Qair_2023.nc | \n"+\
+                self.ROMSFORCING+"/baltic_Qair_2024.nc \ \n"+\
+                self.ROMSFORCING+"/baltic_rain_2020.nc | \n"+\
+                self.ROMSFORCING+"/baltic_rain_2021.nc | \n"+\
+                self.ROMSFORCING+"/baltic_rain_2022.nc | \n"+\
+                self.ROMSFORCING+"/baltic_rain_2023.nc | \n"+\
+                self.ROMSFORCING+"/baltic_rain_2024.nc \ \n"+\
+                self.ROMSFORCING+"/baltic_Tair_2020.nc | \n"+\
+                self.ROMSFORCING+"/baltic_Tair_2021.nc | \n"+\
+                self.ROMSFORCING+"/baltic_Tair_2022.nc | \n"+\
+                self.ROMSFORCING+"/baltic_Tair_2023.nc | \n"+\
+                self.ROMSFORCING+"/baltic_Tair_2024.nc \ \n"+\
+                self.ROMSFORCING+"/baltic_swrad_2020.nc | \n"+\
+                self.ROMSFORCING+"/baltic_swrad_2021.nc | \n"+\
+                self.ROMSFORCING+"/baltic_swrad_2022.nc | \n"+\
+                self.ROMSFORCING+"/baltic_swrad_2023.nc | \n"+\
+                self.ROMSFORCING+"/baltic_swrad_2024.nc \ \n"+\
+                self.ROMSFORCING+"/baltic_wind_2020.nc | \n"+\
+                self.ROMSFORCING+"/baltic_wind_2021.nc | \n"+\
+                self.ROMSFORCING+"/baltic_wind_2022.nc | \n"+\
+                self.ROMSFORCING+"/baltic_wind_2023.nc | \n"+\
+                self.ROMSFORCING+"/baltic_wind_2024.nc"],
             ['FORCEFILES',"7"], # The files should be specified here as well
             ['COUPLINGTIMEI2O',str(self.COUPLINGTIME_I2O)],
             ['ROMSINFILE', self.ROMSINFILE ],
@@ -166,7 +186,7 @@ class Params(object):
             ['CICEGRD',"CICE_grid_dec_mask2.nc"],
             ['CICEKMT',"CICE_KMT_dec_mask2.nc"],
             ['CICEBAT',"CICE_bathy_dec_mask2.nc"],
-            ['CICEINTERP',"/users/project1/pt00625/CSDIR/input_october/out_1_25NM.nc"],
+            ['CICEINTERP',"/users/project1/pt01135/CSDIR/input_october/out_1_25NM.nc"],
             ]
             ########################################################################
             ########################################################################

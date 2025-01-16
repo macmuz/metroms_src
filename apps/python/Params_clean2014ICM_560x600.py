@@ -39,7 +39,7 @@ class Params(object):
             self.CICEDELTAT=900
             self.COUPLINGTIME_I2O=900
             self.ROMSINFOLDER="/users/project1/pt01135/CSDIR/input_dec"
-            self.ROMSFORCING="/users/project1/pt01135/CSDIR/forcing_560x600_CERRA"
+            self.ROMSFORCING="/users/project1/pt01135/CSDIR/forcing_560x600_ICM"
             self.ROMSINIFILE = self.ROMSINFOLDER+"/ROMS_grid_125NM_dec_mask2_19930223_initial_fullnew.nc"
 #            self.ROMSINIFILE = self.RUNPATH+"/ocean_rst_1999-11-27.nc"
             if restart == True:
@@ -83,7 +83,7 @@ class Params(object):
             ['IRESTART',str(self.NRREC)],
             ['RSTSTEP',str(240*3600/int(self.DELTAT))],
             ['STASTEP',str(0*3600/int(self.DELTAT))],
-            ['INFOSTEP',str(1*600/int(self.DELTAT))],
+            ['INFOSTEP',str(1*3600/int(self.DELTAT))],
             ['HISSTEPP',str(0*3600/int(self.DELTAT))],
             ['AVGSTEPP',str(24*3600/int(self.DELTAT))],
             ['STARTAVG',"1"],

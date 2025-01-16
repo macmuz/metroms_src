@@ -131,11 +131,11 @@ GridsInLayer =  1
 ! two letters, regardless if using uppercase or lowercase. If nested
 ! grids, specify values for each grid (see glossary below).
 
-   Hadvection == U3        \                     ! temperature
-                 MPDATA                              ! salinity
+   Hadvection == SU3        \                     ! temperature
+                 HSIMT                              ! salinity
 
-   Vadvection == C4        \                     ! temperature
-                 MPDATA                              ! salinity
+   Vadvection == SU3        \                     ! temperature
+                 HSIMT                              ! salinity
 
 ! Adjoint-based algorithms can have different horizontal and schemes
 ! for active and inert tracers.
@@ -352,8 +352,8 @@ LtracerSponge == F F                            ! temperature, salinity, inert
        GLS_P == 3.0d0                           ! k-kl
        GLS_M == 1.5d0
        GLS_N == -1.0d0
-    GLS_Kmin == 1.0d-12
-    GLS_Pmin == 1.0d-12
+    GLS_Kmin == 1.0d-14
+    GLS_Pmin == 1.0d-14
 
     GLS_CMU0 == 0.5477d0
       GLS_C1 == 1.44d0
@@ -473,7 +473,7 @@ LtracerSponge == F F                            ! temperature, salinity, inert
       Lm2CLM == F                          ! 2D momentum
       Lm3CLM == F                          ! 3D momentum
 
-  LtracerCLM == F T                        ! temperature, salinity, inert
+  LtracerCLM == F F                        ! temperature, salinity, inert
 
 ! Logical switches (TRUE/FALSE) to nudge the desired climatology field(s).
 ! If not analytical climatology fields, users need to turn ON the logical
@@ -483,7 +483,7 @@ LtracerSponge == F F                            ! temperature, salinity, inert
  LnudgeM2CLM == F                          ! 2D momentum
  LnudgeM3CLM == F                          ! 3D momentum
 
-  LnudgeTCLM == F T                        ! temperature, salinity, inert
+  LnudgeTCLM == F F                        ! temperature, salinity, inert
 
 ! Starting (DstrS) and ending (DendS) day for adjoint sensitivity forcing.
 ! DstrS must be less or equal to DendS. If both values are zero, their
@@ -546,8 +546,8 @@ SO_sdev(isTsur) == 1.0d0 1.0d0             ! NT surface tracers flux
 ! Logical switches (TRUE/FALSE) to activate writing of fields into
 ! HISTORY output file.
 
-Hout(idUvel) == T       ! u                  3D U-velocity
-Hout(idVvel) == T       ! v                  3D V-velocity
+Hout(idUvel) == F       ! u                  3D U-velocity
+Hout(idVvel) == F       ! v                  3D V-velocity
 Hout(idu3dE) == F       ! u_eastward         3D U-eastward  at RHO-points
 Hout(idv3dN) == F       ! v_northward        3D V-northward at RHO-points
 Hout(idWvel) == F       ! w                  3D W-velocity
@@ -559,7 +559,7 @@ Hout(idv2dN) == F       ! vbar_northward     2D V-northward at RHO-points
 Hout(idFsur) == T       ! zeta               free-surface
 Hout(idBath) == F       ! bath               time-dependent bathymetry
 
-Hout(idTvar) == T T     ! temp, salt         temperature and salinity
+Hout(idTvar) == F F     ! temp, salt         temperature and salinity
 
 Hout(idpthR) == F       ! z_rho              time-varying depths of RHO-points
 Hout(idpthU) == F       ! z_u                time-varying depths of U-points
@@ -617,8 +617,8 @@ Hout(idVair) == T       ! Vair               surface V-wind component
 Hout(idTsur) == F F     ! shflux, ssflux     surface net heat and salt flux
 Hout(idLhea) == F       ! latent             latent heat flux
 Hout(idShea) == F       ! sensible           sensible heat flux
-Hout(idLrad) == F       ! lwrad              longwave radiation flux
-Hout(idSrad) == F       ! swrad              shortwave radiation flux
+Hout(idLrad) == T       ! lwrad              longwave radiation flux
+Hout(idSrad) == T       ! swrad              shortwave radiation flux
 Hout(idEmPf) == F       ! EminusP            E-P flux
 Hout(idevap) == F       ! evaporation        evaporation rate
 Hout(idrain) == F       ! rain               precipitation rate

@@ -21,7 +21,7 @@ rst        = True
 copyfiles  = True
 #start_date = datetime(2003,10,27)
 start_date = datetime(1993,2,23)
-end_date   = datetime(2024,8,1)
+end_date   = datetime(2017,12,1)
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 

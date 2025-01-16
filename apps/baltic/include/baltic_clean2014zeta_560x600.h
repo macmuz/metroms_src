@@ -109,8 +109,8 @@
 # define SPECIFIC_HUMIDITY /*MACIEJ*/
 # define POP_WIND /*MACIEJ*/
 # define COOL_SKIN /*MACIEJ*/
-# undef ANA_SRFLUX /*MACIEJ*/
-# define ALBEDO /*MACIEJ*/
+/*# define ANA_SRFLUX MACIEJ*/
+/*# define ALBEDO MACIEJ*/
 # define ROTATE_WINDS /*MACIEJ*/
 /*# define RADRAIN MACIEJ*/
 # undef  DIURNAL_SRFLUX

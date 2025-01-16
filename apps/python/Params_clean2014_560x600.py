@@ -83,7 +83,7 @@ class Params(object):
             ['IRESTART',str(self.NRREC)],
             ['RSTSTEP',str(240*3600/int(self.DELTAT))],
             ['STASTEP',str(0*3600/int(self.DELTAT))],
-            ['INFOSTEP',str(1*600/int(self.DELTAT))],
+            ['INFOSTEP',str(1*3600/int(self.DELTAT))],
             ['HISSTEPP',str(0*3600/int(self.DELTAT))],
             ['AVGSTEPP',str(24*3600/int(self.DELTAT))],
             ['STARTAVG',"1"],
@@ -147,11 +147,11 @@ class Params(object):
                 self.ROMSFORCING+"/baltic_Tair_2022.nc | \n"+\
                 self.ROMSFORCING+"/baltic_Tair_2023.nc | \n"+\
                 self.ROMSFORCING+"/baltic_Tair_2024.nc \ \n"+\
-                self.ROMSFORCING+"/baltic_swrad_2020.nc | \n"+\
-                self.ROMSFORCING+"/baltic_swrad_2021.nc | \n"+\
-                self.ROMSFORCING+"/baltic_swrad_2022.nc | \n"+\
-                self.ROMSFORCING+"/baltic_swrad_2023.nc | \n"+\
-                self.ROMSFORCING+"/baltic_swrad_2024.nc \ \n"+\
+                self.ROMSFORCING+"/baltic_cloud_2020.nc | \n"+\
+                self.ROMSFORCING+"/baltic_cloud_2021.nc | \n"+\
+                self.ROMSFORCING+"/baltic_cloud_2022.nc | \n"+\
+                self.ROMSFORCING+"/baltic_cloud_2023.nc | \n"+\
+                self.ROMSFORCING+"/baltic_cloud_2024.nc \ \n"+\
                 self.ROMSFORCING+"/baltic_wind_2020.nc | \n"+\
                 self.ROMSFORCING+"/baltic_wind_2021.nc | \n"+\
                 self.ROMSFORCING+"/baltic_wind_2022.nc | \n"+\

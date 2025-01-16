@@ -1,1 +1,1 @@
-baltic_keps5clima2_560x600.h
+baltic_clean1Have_560x600.h
